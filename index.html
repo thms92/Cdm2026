@@ -30,6 +30,8 @@
   .dl { background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,.15); font-weight:600; font-size:13px; }
   .divider { height:1px; background:rgba(255,255,255,.08); margin:26px 0 4px; }
   .note { color:var(--muted); font-size:12px; margin-top:20px; line-height:1.5; }
+  .tip { text-align:left; background:rgba(233,185,73,.10); border:1px solid rgba(233,185,73,.3);
+    border-radius:11px; padding:11px 13px; font-size:12px; color:#f0d99a; line-height:1.45; margin:-2px 0 14px; }
 </style>
 </head>
 <body>
@@ -40,6 +42,7 @@
 
     <div class="choice-label">🔔 Avec alerte</div>
     <p class="desc">Rappel automatique 15 min avant chaque match.</p>
+    <div class="tip">⚠️ Sur iPhone / Mac, à l'ajout : <strong>laissez la case « Supprimer › Alertes » DÉCOCHÉE</strong>, sinon les rappels seront retirés.</div>
     <a class="btn apple" id="appleA" href="#"> Apple Calendar (iPhone / Mac)</a>
     <a class="btn google" id="googleA" href="#" target="_blank"> Google Agenda</a>
     <a class="btn dl" href="cdm2026-alerte.ics" download>⬇️ Télécharger (.ics avec alerte)</a>
@@ -47,13 +50,13 @@
     <div class="divider"></div>
 
     <div class="choice-label">🔕 Sans alerte</div>
-    <p class="desc">Aucune notification (idéal vu les matchs de nuit). Tu pourras toujours activer les alertes par défaut de ton app Calendrier.</p>
+    <p class="desc">Aucune notification (idéal vu les matchs de nuit). Vous pourrez toujours activer les alertes par défaut de votre app Calendrier.</p>
     <a class="btn apple" id="appleN" href="#"> Apple Calendar (iPhone / Mac)</a>
     <a class="btn google" id="googleN" href="#" target="_blank"> Google Agenda</a>
     <a class="btn dl" href="cdm2026.ics" download>⬇️ Télécharger (.ics sans alerte)</a>
 
     <p class="note">
-      Calendrier auto-mis à jour : les phases finales s'ajouteront automatiquement au fil du tournoi.
+      ℹ️ Il s'agit d'un abonnement : l'option d'alerte est définie à l'ajout et n'est pas modifiable match par match ensuite. Le calendrier se met à jour tout seul — les phases finales s'ajouteront automatiquement au fil du tournoi.
     </p>
   </div>
 
