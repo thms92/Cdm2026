@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📅 Calendrier Coupe du Monde 2026 — Heure de Paris</title>
+<meta property="og:title" content="📅 Calendrier Coupe du Monde 2026">
+<meta property="og:description" content="Tous les matchs de la CDM 2026 dans ton calendrier, en heure de Paris. Abonnement en 1 clic.">
+<style>
+  :root { --bg:#0a0e1a; --card:#131a2e; --gold:#e9b949; --txt:#f5f5f7; --muted:#9aa3b8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:radial-gradient(circle at 50% 0%, #1a2542 0%, var(--bg) 60%);
+    color:var(--txt); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card { background:var(--card); border:1px solid rgba(233,185,73,.25); border-radius:24px;
+    padding:40px 28px; max-width:460px; width:100%; text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.5); }
+  .trophy { font-size:56px; line-height:1; margin-bottom:8px; }
+  h1 { font-size:24px; font-weight:800; letter-spacing:-.5px; margin-bottom:6px; }
+  .sub { color:var(--muted); font-size:14px; margin-bottom:24px; }
+  .choice-label { text-align:left; font-size:13px; font-weight:700; color:var(--gold);
+    margin:22px 0 10px; text-transform:uppercase; letter-spacing:.5px; }
+  .desc { text-align:left; font-size:12px; color:var(--muted); margin:-4px 0 12px; line-height:1.4; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; padding:14px; border-radius:13px; font-size:14px; font-weight:700;
+    text-decoration:none; margin-bottom:10px; transition:transform .12s ease; border:none; cursor:pointer; }
+  .btn:active { transform:scale(.97); }
+  .apple { background:#fff; color:#000; }
+  .google { background:#1a73e8; color:#fff; }
+  .dl { background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,.15); font-weight:600; font-size:13px; }
+  .divider { height:1px; background:rgba(255,255,255,.08); margin:26px 0 4px; }
+  .note { color:var(--muted); font-size:12px; margin-top:20px; line-height:1.5; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="trophy">🏆</div>
+    <h1>Coupe du Monde 2026</h1>
+    <p class="sub">Tous les matchs dans ton calendrier · 🕐 Heure de Paris</p>
+
+    <div class="choice-label">🔔 Avec alerte</div>
+    <p class="desc">Rappel automatique 15 min avant chaque match.</p>
+    <a class="btn apple" id="appleA" href="#"> Apple Calendar (iPhone / Mac)</a>
+    <a class="btn google" id="googleA" href="#" target="_blank"> Google Agenda</a>
+    <a class="btn dl" href="cdm2026-alerte.ics" download>⬇️ Télécharger (.ics avec alerte)</a>
+
+    <div class="divider"></div>
+
+    <div class="choice-label">🔕 Sans alerte</div>
+    <p class="desc">Aucune notification (idéal vu les matchs de nuit). Tu pourras toujours activer les alertes par défaut de ton app Calendrier.</p>
+    <a class="btn apple" id="appleN" href="#"> Apple Calendar (iPhone / Mac)</a>
+    <a class="btn google" id="googleN" href="#" target="_blank"> Google Agenda</a>
+    <a class="btn dl" href="cdm2026.ics" download>⬇️ Télécharger (.ics sans alerte)</a>
+
+    <p class="note">
+      Calendrier auto-mis à jour : les phases finales s'ajouteront automatiquement au fil du tournoi.
+    </p>
+  </div>
+
+<script>
+  var host = location.host + location.pathname.replace(/index\.html?$/, "");
+  function webcal(file){ return "webcal://" + host + file; }
+  function gcal(file){ return "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(webcal(file)); }
+
+  document.getElementById("appleA").href = webcal("cdm2026-alerte.ics");
+  document.getElementById("googleA").href = gcal("cdm2026-alerte.ics");
+  document.getElementById("appleN").href = webcal("cdm2026.ics");
+  document.getElementById("googleN").href = gcal("cdm2026.ics");
+</script>
+</body>
+</html>
