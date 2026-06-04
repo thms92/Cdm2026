@@ -27,7 +27,7 @@ UID:234e897e-40fc-41d1-b7b3-bbfa4272a8f6@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260611T210000
 DTEND;TZID=Europe/Paris:20260611T230000
-SUMMARY:🏆 Mexique 🇲🇽 vs Afrique du Sud 🇿🇦
+SUMMARY:🏆 🇲🇽 Mexique vs 🇿🇦 Afrique du Sud
 LOCATION:Mexico City
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe A - Mexico City
 END:VEVENT
@@ -36,7 +36,7 @@ UID:4742167c-6727-4390-90c1-150816027269@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260612T040000
 DTEND;TZID=Europe/Paris:20260612T060000
-SUMMARY:🏆 Corée du Sud 🇰🇷 vs Tchéquie 🇨🇿
+SUMMARY:🏆 🇰🇷 Corée du Sud vs 🇨🇿 Tchéquie
 LOCATION:Guadalajara
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe A - Guadalajara
 END:VEVENT
@@ -45,7 +45,7 @@ UID:0d72fbf4-9a40-4615-adbc-00ebdef831e2@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260612T210000
 DTEND;TZID=Europe/Paris:20260612T230000
-SUMMARY:🏆 Canada 🇨🇦 vs Bosnie-Herzégovine 🇧🇦
+SUMMARY:🏆 🇨🇦 Canada vs 🇧🇦 Bosnie-Herzégovine
 LOCATION:Toronto
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe B - Toronto
 END:VEVENT
@@ -54,7 +54,7 @@ UID:67c289d2-7217-4297-acb6-2e0faf48b939@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260613T030000
 DTEND;TZID=Europe/Paris:20260613T050000
-SUMMARY:🏆 USA 🇺🇸 vs Paraguay 🇵🇾
+SUMMARY:🏆 🇺🇸 USA vs 🇵🇾 Paraguay
 LOCATION:Los Angeles
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe D - Los Angeles
 END:VEVENT
@@ -63,7 +63,7 @@ UID:0fb07559-fbcf-44dc-b819-bd54fa083851@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260613T210000
 DTEND;TZID=Europe/Paris:20260613T230000
-SUMMARY:🏆 Qatar 🇶🇦 vs Suisse 🇨🇭
+SUMMARY:🏆 🇶🇦 Qatar vs 🇨🇭 Suisse
 LOCATION:San Francisco
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe B - San Francisco
 END:VEVENT
@@ -72,7 +72,7 @@ UID:ddc28550-427d-48ff-b214-5a7228087cc2@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260614T000000
 DTEND;TZID=Europe/Paris:20260614T020000
-SUMMARY:🏆 Brésil 🇧🇷 vs Maroc 🇲🇦
+SUMMARY:🏆 🇧🇷 Brésil vs 🇲🇦 Maroc
 LOCATION:New York/New Jersey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe C - New York/New Jersey
 END:VEVENT
@@ -81,7 +81,7 @@ UID:26356dd7-a7c0-4888-a64a-7147920c4c40@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260614T030000
 DTEND;TZID=Europe/Paris:20260614T050000
-SUMMARY:🏆 Haïti 🇭🇹 vs Écosse 🏴󠁧󠁢󠁳󠁣󠁴󠁿
+SUMMARY:🏆 🇭🇹 Haïti vs 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Écosse
 LOCATION:Boston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe C - Boston
 END:VEVENT
@@ -90,7 +90,7 @@ UID:ff2dcc02-7041-4bb8-ad95-c250a5d8181e@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260614T060000
 DTEND;TZID=Europe/Paris:20260614T080000
-SUMMARY:🏆 Australie 🇦🇺 vs Turquie 🇹🇷
+SUMMARY:🏆 🇦🇺 Australie vs 🇹🇷 Turquie
 LOCATION:Vancouver
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe D - Vancouver
 END:VEVENT
@@ -99,7 +99,7 @@ UID:bda28dcd-3d44-47cf-8e64-dc7d1058d9e3@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260614T190000
 DTEND;TZID=Europe/Paris:20260614T210000
-SUMMARY:🏆 Allemagne 🇩🇪 vs Curaçao 🇨🇼
+SUMMARY:🏆 🇩🇪 Allemagne vs 🇨🇼 Curaçao
 LOCATION:Houston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe E - Houston
 END:VEVENT
@@ -108,7 +108,7 @@ UID:d6f8f1e5-0e7e-48ce-b2bb-035d5690327a@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260614T220000
 DTEND;TZID=Europe/Paris:20260615T000000
-SUMMARY:🏆 Pays-Bas 🇳🇱 vs Japon 🇯🇵
+SUMMARY:🏆 🇳🇱 Pays-Bas vs 🇯🇵 Japon
 LOCATION:Dallas
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe F - Dallas
 END:VEVENT
@@ -117,7 +117,7 @@ UID:5c7c31ab-0fd8-453d-b930-2d5f00bef410@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260615T010000
 DTEND;TZID=Europe/Paris:20260615T030000
-SUMMARY:🏆 Côte d'Ivoire 🇨🇮 vs Équateur 🇪🇨
+SUMMARY:🏆 🇨🇮 Côte d'Ivoire vs 🇪🇨 Équateur
 LOCATION:Philadelphia
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe E - Philadelphia
 END:VEVENT
@@ -126,7 +126,7 @@ UID:501e78df-b55a-48a7-a723-71bf8d307460@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260615T040000
 DTEND;TZID=Europe/Paris:20260615T060000
-SUMMARY:🏆 Suède 🇸🇪 vs Tunisie 🇹🇳
+SUMMARY:🏆 🇸🇪 Suède vs 🇹🇳 Tunisie
 LOCATION:Monterrey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe F - Monterrey
 END:VEVENT
@@ -135,7 +135,7 @@ UID:18a12d79-1bdf-426d-bfe4-0939516d26c7@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260615T180000
 DTEND;TZID=Europe/Paris:20260615T200000
-SUMMARY:🏆 Espagne 🇪🇸 vs Cap-Vert 🇨🇻
+SUMMARY:🏆 🇪🇸 Espagne vs 🇨🇻 Cap-Vert
 LOCATION:Atlanta
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe H - Atlanta
 END:VEVENT
@@ -144,7 +144,7 @@ UID:82046c65-3778-4554-8591-d363a28ae719@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260615T210000
 DTEND;TZID=Europe/Paris:20260615T230000
-SUMMARY:🏆 Belgique 🇧🇪 vs Égypte 🇪🇬
+SUMMARY:🏆 🇧🇪 Belgique vs 🇪🇬 Égypte
 LOCATION:Seattle
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe G - Seattle
 END:VEVENT
@@ -153,7 +153,7 @@ UID:805a0119-b545-449f-8ca7-a10220477785@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260616T000000
 DTEND;TZID=Europe/Paris:20260616T020000
-SUMMARY:🏆 Arabie Saoudite 🇸🇦 vs Uruguay 🇺🇾
+SUMMARY:🏆 🇸🇦 Arabie Saoudite vs 🇺🇾 Uruguay
 LOCATION:Miami
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe H - Miami
 END:VEVENT
@@ -162,7 +162,7 @@ UID:c6fe8d70-c2c6-4731-a5c4-57f57ded6bf4@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260616T030000
 DTEND;TZID=Europe/Paris:20260616T050000
-SUMMARY:🏆 Iran 🇮🇷 vs Nouvelle-Zélande 🇳🇿
+SUMMARY:🏆 🇮🇷 Iran vs 🇳🇿 Nouvelle-Zélande
 LOCATION:Los Angeles
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe G - Los Angeles
 END:VEVENT
@@ -171,7 +171,7 @@ UID:3f7ea9f6-d186-4f6c-b13f-8e22c6347714@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260616T210000
 DTEND;TZID=Europe/Paris:20260616T230000
-SUMMARY:🏆⭐ France 🇫🇷 vs Sénégal 🇸🇳
+SUMMARY:🏆⭐ 🇫🇷 France vs 🇸🇳 Sénégal
 LOCATION:New York/New Jersey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe I - New York/New Jersey
 END:VEVENT
@@ -180,7 +180,7 @@ UID:d3a96dfe-86a2-4c63-af4c-56d50a93157f@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260617T000000
 DTEND;TZID=Europe/Paris:20260617T020000
-SUMMARY:🏆 Irak 🇮🇶 vs Norvège 🇳🇴
+SUMMARY:🏆 🇮🇶 Irak vs 🇳🇴 Norvège
 LOCATION:Boston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe I - Boston
 END:VEVENT
@@ -189,7 +189,7 @@ UID:7de681fe-aee9-48ce-91ce-174c9530633e@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260617T030000
 DTEND;TZID=Europe/Paris:20260617T050000
-SUMMARY:🏆 Argentine 🇦🇷 vs Algérie 🇩🇿
+SUMMARY:🏆 🇦🇷 Argentine vs 🇩🇿 Algérie
 LOCATION:Kansas City
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe J - Kansas City
 END:VEVENT
@@ -198,7 +198,7 @@ UID:f4910070-3bde-493b-86aa-febb1aac263a@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260617T060000
 DTEND;TZID=Europe/Paris:20260617T080000
-SUMMARY:🏆 Autriche 🇦🇹 vs Jordanie 🇯🇴
+SUMMARY:🏆 🇦🇹 Autriche vs 🇯🇴 Jordanie
 LOCATION:San Francisco
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe J - San Francisco
 END:VEVENT
@@ -207,7 +207,7 @@ UID:f947f94a-9bb3-4953-8ff6-0bd3726f7f37@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260617T190000
 DTEND;TZID=Europe/Paris:20260617T210000
-SUMMARY:🏆 Portugal 🇵🇹 vs RD Congo 🇨🇩
+SUMMARY:🏆 🇵🇹 Portugal vs 🇨🇩 RD Congo
 LOCATION:Houston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe K - Houston
 END:VEVENT
@@ -216,7 +216,7 @@ UID:1d5d416b-43d4-461d-8048-ead53880e2ba@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260617T220000
 DTEND;TZID=Europe/Paris:20260618T000000
-SUMMARY:🏆 Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿 vs Croatie 🇭🇷
+SUMMARY:🏆 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre vs 🇭🇷 Croatie
 LOCATION:Dallas
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe L - Dallas
 END:VEVENT
@@ -225,7 +225,7 @@ UID:772bf1f3-fd28-49d7-820d-b9bf502f5688@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260618T010000
 DTEND;TZID=Europe/Paris:20260618T030000
-SUMMARY:🏆 Ghana 🇬🇭 vs Panama 🇵🇦
+SUMMARY:🏆 🇬🇭 Ghana vs 🇵🇦 Panama
 LOCATION:Toronto
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe L - Toronto
 END:VEVENT
@@ -234,7 +234,7 @@ UID:011d70fa-6f4f-4372-811e-854800a2f5fc@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260618T040000
 DTEND;TZID=Europe/Paris:20260618T060000
-SUMMARY:🏆 Ouzbékistan 🇺🇿 vs Colombie 🇨🇴
+SUMMARY:🏆 🇺🇿 Ouzbékistan vs 🇨🇴 Colombie
 LOCATION:Mexico City
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe K - Mexico City
 END:VEVENT
@@ -243,7 +243,7 @@ UID:bcf7a628-5d41-47d1-9159-cd59f15b065b@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260618T180000
 DTEND;TZID=Europe/Paris:20260618T200000
-SUMMARY:🏆 Tchéquie 🇨🇿 vs Afrique du Sud 🇿🇦
+SUMMARY:🏆 🇨🇿 Tchéquie vs 🇿🇦 Afrique du Sud
 LOCATION:Atlanta
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe A - Atlanta
 END:VEVENT
@@ -252,7 +252,7 @@ UID:083d4018-80de-411c-b707-21164cb6aa6f@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260618T210000
 DTEND;TZID=Europe/Paris:20260618T230000
-SUMMARY:🏆 Suisse 🇨🇭 vs Bosnie-Herzégovine 🇧🇦
+SUMMARY:🏆 🇨🇭 Suisse vs 🇧🇦 Bosnie-Herzégovine
 LOCATION:Los Angeles
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe B - Los Angeles
 END:VEVENT
@@ -261,7 +261,7 @@ UID:02ec58d3-9e1b-4401-991f-34a87cbc1e1f@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260619T000000
 DTEND;TZID=Europe/Paris:20260619T020000
-SUMMARY:🏆 Canada 🇨🇦 vs Qatar 🇶🇦
+SUMMARY:🏆 🇨🇦 Canada vs 🇶🇦 Qatar
 LOCATION:Vancouver
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe B - Vancouver
 END:VEVENT
@@ -270,7 +270,7 @@ UID:12cc7dab-ad3f-4858-b47c-1f5bc190e719@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260619T030000
 DTEND;TZID=Europe/Paris:20260619T050000
-SUMMARY:🏆 Mexique 🇲🇽 vs Corée du Sud 🇰🇷
+SUMMARY:🏆 🇲🇽 Mexique vs 🇰🇷 Corée du Sud
 LOCATION:Guadalajara
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe A - Guadalajara
 END:VEVENT
@@ -279,7 +279,7 @@ UID:ccc0a679-d23e-4c8b-8d20-6d81f8c235a7@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260619T210000
 DTEND;TZID=Europe/Paris:20260619T230000
-SUMMARY:🏆 USA 🇺🇸 vs Australie 🇦🇺
+SUMMARY:🏆 🇺🇸 USA vs 🇦🇺 Australie
 LOCATION:Seattle
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe D - Seattle
 END:VEVENT
@@ -288,7 +288,7 @@ UID:05654ca5-f8ec-4912-bd65-1b7128e30272@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260620T060000
 DTEND;TZID=Europe/Paris:20260620T080000
-SUMMARY:🏆 Turquie 🇹🇷 vs Paraguay 🇵🇾
+SUMMARY:🏆 🇹🇷 Turquie vs 🇵🇾 Paraguay
 LOCATION:San Francisco
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe D - San Francisco
 END:VEVENT
@@ -297,7 +297,7 @@ UID:f078945a-2162-45d5-8a5d-dfd99153a963@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260620T000000
 DTEND;TZID=Europe/Paris:20260620T020000
-SUMMARY:🏆 Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿 vs Maroc 🇲🇦
+SUMMARY:🏆 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland vs 🇲🇦 Maroc
 LOCATION:Boston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe C - Boston
 END:VEVENT
@@ -306,7 +306,7 @@ UID:a3748f4a-fafe-4200-b86c-1a7f45242f27@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260620T030000
 DTEND;TZID=Europe/Paris:20260620T050000
-SUMMARY:🏆 Brésil 🇧🇷 vs Haïti 🇭🇹
+SUMMARY:🏆 🇧🇷 Brésil vs 🇭🇹 Haïti
 LOCATION:Philadelphia
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe C - Philadelphia
 END:VEVENT
@@ -315,7 +315,7 @@ UID:282fae24-409c-4d34-9972-77128b01cc91@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260620T220000
 DTEND;TZID=Europe/Paris:20260621T000000
-SUMMARY:🏆 Allemagne 🇩🇪 vs Côte d'Ivoire 🇨🇮
+SUMMARY:🏆 🇩🇪 Allemagne vs 🇨🇮 Côte d'Ivoire
 LOCATION:Toronto
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe E - Toronto
 END:VEVENT
@@ -324,7 +324,7 @@ UID:29fcaf29-3632-4b23-b414-91b9b7b2492e@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260621T020000
 DTEND;TZID=Europe/Paris:20260621T040000
-SUMMARY:🏆 Équateur 🇪🇨 vs Curaçao 🇨🇼
+SUMMARY:🏆 🇪🇨 Équateur vs 🇨🇼 Curaçao
 LOCATION:Kansas City
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe E - Kansas City
 END:VEVENT
@@ -333,7 +333,7 @@ UID:7ce2d8aa-b8bf-4064-ba04-99e039017b76@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260620T190000
 DTEND;TZID=Europe/Paris:20260620T210000
-SUMMARY:🏆 Pays-Bas 🇳🇱 vs Suède 🇸🇪
+SUMMARY:🏆 🇳🇱 Pays-Bas vs 🇸🇪 Suède
 LOCATION:Houston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe F - Houston
 END:VEVENT
@@ -342,7 +342,7 @@ UID:f56968f3-1208-42e9-9836-54b749cbf402@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260621T060000
 DTEND;TZID=Europe/Paris:20260621T080000
-SUMMARY:🏆 Tunisie 🇹🇳 vs Japon 🇯🇵
+SUMMARY:🏆 🇹🇳 Tunisie vs 🇯🇵 Japon
 LOCATION:Monterrey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe F - Monterrey
 END:VEVENT
@@ -351,7 +351,7 @@ UID:0eaafb84-0f88-451d-89a2-e4c8eab14d50@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260621T180000
 DTEND;TZID=Europe/Paris:20260621T200000
-SUMMARY:🏆 Espagne 🇪🇸 vs Arabie Saoudite 🇸🇦
+SUMMARY:🏆 🇪🇸 Espagne vs 🇸🇦 Arabie Saoudite
 LOCATION:Atlanta
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe H - Atlanta
 END:VEVENT
@@ -360,7 +360,7 @@ UID:6c6b75dd-735a-4f0d-858b-91e994a2114b@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260622T000000
 DTEND;TZID=Europe/Paris:20260622T020000
-SUMMARY:🏆 Uruguay 🇺🇾 vs Cap-Vert 🇨🇻
+SUMMARY:🏆 🇺🇾 Uruguay vs 🇨🇻 Cap-Vert
 LOCATION:Miami
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe H - Miami
 END:VEVENT
@@ -369,7 +369,7 @@ UID:62e84fc5-8c8a-42c7-ac85-380aa1889785@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260621T210000
 DTEND;TZID=Europe/Paris:20260621T230000
-SUMMARY:🏆 Belgique 🇧🇪 vs Iran 🇮🇷
+SUMMARY:🏆 🇧🇪 Belgique vs 🇮🇷 Iran
 LOCATION:Los Angeles
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe G - Los Angeles
 END:VEVENT
@@ -378,7 +378,7 @@ UID:052a30a8-59ca-4ac0-9436-5c14770c4f9e@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260622T030000
 DTEND;TZID=Europe/Paris:20260622T050000
-SUMMARY:🏆 Nouvelle-Zélande 🇳🇿 vs Égypte 🇪🇬
+SUMMARY:🏆 🇳🇿 Nouvelle-Zélande vs 🇪🇬 Égypte
 LOCATION:Vancouver
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe G - Vancouver
 END:VEVENT
@@ -387,7 +387,7 @@ UID:4d5de66f-6ad8-43c5-aab4-6ad599b3bcc1@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260622T230000
 DTEND;TZID=Europe/Paris:20260623T010000
-SUMMARY:🏆⭐ France 🇫🇷 vs Irak 🇮🇶
+SUMMARY:🏆⭐ 🇫🇷 France vs 🇮🇶 Irak
 LOCATION:Philadelphia
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe I - Philadelphia
 END:VEVENT
@@ -396,7 +396,7 @@ UID:473b6689-7221-4540-8767-52e97a5980eb@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260623T020000
 DTEND;TZID=Europe/Paris:20260623T040000
-SUMMARY:🏆 Norvège 🇳🇴 vs Sénégal 🇸🇳
+SUMMARY:🏆 🇳🇴 Norvège vs 🇸🇳 Sénégal
 LOCATION:New York/New Jersey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe I - New York/New Jersey
 END:VEVENT
@@ -405,7 +405,7 @@ UID:4836be5a-22e2-420b-bcfd-79db9f7c1d31@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260622T190000
 DTEND;TZID=Europe/Paris:20260622T210000
-SUMMARY:🏆 Argentine 🇦🇷 vs Autriche 🇦🇹
+SUMMARY:🏆 🇦🇷 Argentine vs 🇦🇹 Autriche
 LOCATION:Dallas
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe J - Dallas
 END:VEVENT
@@ -414,7 +414,7 @@ UID:6c261a6d-0292-431d-8ae2-aed2ad0160de@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260623T050000
 DTEND;TZID=Europe/Paris:20260623T070000
-SUMMARY:🏆 Jordanie 🇯🇴 vs Algérie 🇩🇿
+SUMMARY:🏆 🇯🇴 Jordanie vs 🇩🇿 Algérie
 LOCATION:San Francisco
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe J - San Francisco
 END:VEVENT
@@ -423,7 +423,7 @@ UID:fefd62f4-6f54-43c7-9cd3-da5a1a8a2d18@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260623T190000
 DTEND;TZID=Europe/Paris:20260623T210000
-SUMMARY:🏆 Portugal 🇵🇹 vs Ouzbékistan 🇺🇿
+SUMMARY:🏆 🇵🇹 Portugal vs 🇺🇿 Ouzbékistan
 LOCATION:Houston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe K - Houston
 END:VEVENT
@@ -432,7 +432,7 @@ UID:c8502fa7-ccff-41a7-9358-7e3329cd30d1@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260624T040000
 DTEND;TZID=Europe/Paris:20260624T060000
-SUMMARY:🏆 Colombie 🇨🇴 vs RD Congo 🇨🇩
+SUMMARY:🏆 🇨🇴 Colombie vs 🇨🇩 RD Congo
 LOCATION:Guadalajara
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe K - Guadalajara
 END:VEVENT
@@ -441,7 +441,7 @@ UID:c852b5e8-af53-4867-8149-8184aea28046@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260623T220000
 DTEND;TZID=Europe/Paris:20260624T000000
-SUMMARY:🏆 Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿 vs Ghana 🇬🇭
+SUMMARY:🏆 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre vs 🇬🇭 Ghana
 LOCATION:Boston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe L - Boston
 END:VEVENT
@@ -450,7 +450,7 @@ UID:f743dcdc-275a-454e-935d-86436b0ce803@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260624T010000
 DTEND;TZID=Europe/Paris:20260624T030000
-SUMMARY:🏆 Panama 🇵🇦 vs Croatie 🇭🇷
+SUMMARY:🏆 🇵🇦 Panama vs 🇭🇷 Croatie
 LOCATION:Toronto
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe L - Toronto
 END:VEVENT
@@ -459,7 +459,7 @@ UID:b1fdb03e-053b-4ddb-add3-edb03abecdb7@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260625T030000
 DTEND;TZID=Europe/Paris:20260625T050000
-SUMMARY:🏆 Tchéquie 🇨🇿 vs Mexique 🇲🇽
+SUMMARY:🏆 🇨🇿 Tchéquie vs 🇲🇽 Mexique
 LOCATION:Mexico City
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe A - Mexico City
 END:VEVENT
@@ -468,7 +468,7 @@ UID:841292b5-628f-4a2f-9940-7dca9ae0219c@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260625T030000
 DTEND;TZID=Europe/Paris:20260625T050000
-SUMMARY:🏆 Afrique du Sud 🇿🇦 vs Corée du Sud 🇰🇷
+SUMMARY:🏆 🇿🇦 Afrique du Sud vs 🇰🇷 Corée du Sud
 LOCATION:Monterrey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe A - Monterrey
 END:VEVENT
@@ -477,7 +477,7 @@ UID:ef30dd00-f95b-4190-a1fc-d539ea0e1ace@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260624T210000
 DTEND;TZID=Europe/Paris:20260624T230000
-SUMMARY:🏆 Suisse 🇨🇭 vs Canada 🇨🇦
+SUMMARY:🏆 🇨🇭 Suisse vs 🇨🇦 Canada
 LOCATION:Vancouver
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe B - Vancouver
 END:VEVENT
@@ -486,7 +486,7 @@ UID:4db1d9a4-1790-4e1c-bb60-7e1dee11975d@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260624T210000
 DTEND;TZID=Europe/Paris:20260624T230000
-SUMMARY:🏆 Bosnie-Herzégovine 🇧🇦 vs Qatar 🇶🇦
+SUMMARY:🏆 🇧🇦 Bosnie-Herzégovine vs 🇶🇦 Qatar
 LOCATION:Seattle
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe B - Seattle
 END:VEVENT
@@ -495,7 +495,7 @@ UID:124ccead-5db0-44e6-a820-7bda965131f7@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260625T000000
 DTEND;TZID=Europe/Paris:20260625T020000
-SUMMARY:🏆 Écosse 🏴󠁧󠁢󠁳󠁣󠁴󠁿 vs Brésil 🇧🇷
+SUMMARY:🏆 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Écosse vs 🇧🇷 Brésil
 LOCATION:Miami
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe C - Miami
 END:VEVENT
@@ -504,7 +504,7 @@ UID:1c0af977-6282-47fb-ba96-0fffe4836c58@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260625T000000
 DTEND;TZID=Europe/Paris:20260625T020000
-SUMMARY:🏆 Maroc 🇲🇦 vs Haïti 🇭🇹
+SUMMARY:🏆 🇲🇦 Maroc vs 🇭🇹 Haïti
 LOCATION:Atlanta
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe C - Atlanta
 END:VEVENT
@@ -513,7 +513,7 @@ UID:27c30163-ebd4-4b65-b24f-9227b0604d9c@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260626T040000
 DTEND;TZID=Europe/Paris:20260626T060000
-SUMMARY:🏆 Turquie 🇹🇷 vs USA 🇺🇸
+SUMMARY:🏆 🇹🇷 Turquie vs 🇺🇸 USA
 LOCATION:Los Angeles
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe D - Los Angeles
 END:VEVENT
@@ -522,7 +522,7 @@ UID:149d5b09-4ba8-4eeb-b435-90b04675c409@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260626T040000
 DTEND;TZID=Europe/Paris:20260626T060000
-SUMMARY:🏆 Paraguay 🇵🇾 vs Australie 🇦🇺
+SUMMARY:🏆 🇵🇾 Paraguay vs 🇦🇺 Australie
 LOCATION:San Francisco
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe D - San Francisco
 END:VEVENT
@@ -531,7 +531,7 @@ UID:97389e0a-7433-4504-bd3a-0e8604d0ab45@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260625T220000
 DTEND;TZID=Europe/Paris:20260626T000000
-SUMMARY:🏆 Équateur 🇪🇨 vs Allemagne 🇩🇪
+SUMMARY:🏆 🇪🇨 Équateur vs 🇩🇪 Allemagne
 LOCATION:New York/New Jersey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe E - New York/New Jersey
 END:VEVENT
@@ -540,7 +540,7 @@ UID:cffe9e71-f7e7-4549-94d5-66f81fedf8f8@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260625T220000
 DTEND;TZID=Europe/Paris:20260626T000000
-SUMMARY:🏆 Curaçao 🇨🇼 vs Côte d'Ivoire 🇨🇮
+SUMMARY:🏆 🇨🇼 Curaçao vs 🇨🇮 Côte d'Ivoire
 LOCATION:Philadelphia
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe E - Philadelphia
 END:VEVENT
@@ -549,7 +549,7 @@ UID:212e6d51-5981-46d9-b495-5604139aaf32@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260626T010000
 DTEND;TZID=Europe/Paris:20260626T030000
-SUMMARY:🏆 Japon 🇯🇵 vs Suède 🇸🇪
+SUMMARY:🏆 🇯🇵 Japon vs 🇸🇪 Suède
 LOCATION:Dallas
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe F - Dallas
 END:VEVENT
@@ -558,7 +558,7 @@ UID:2e172599-acfc-4039-b1ba-a3616303440e@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260626T010000
 DTEND;TZID=Europe/Paris:20260626T030000
-SUMMARY:🏆 Tunisie 🇹🇳 vs Pays-Bas 🇳🇱
+SUMMARY:🏆 🇹🇳 Tunisie vs 🇳🇱 Pays-Bas
 LOCATION:Kansas City
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe F - Kansas City
 END:VEVENT
@@ -567,7 +567,7 @@ UID:3368f7ee-6b4b-4f74-8d08-16d7a3243971@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260627T050000
 DTEND;TZID=Europe/Paris:20260627T070000
-SUMMARY:🏆 Égypte 🇪🇬 vs Iran 🇮🇷
+SUMMARY:🏆 🇪🇬 Égypte vs 🇮🇷 Iran
 LOCATION:Seattle
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe G - Seattle
 END:VEVENT
@@ -576,7 +576,7 @@ UID:56e99502-6d29-403d-a754-e2f44b2de7ec@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260627T050000
 DTEND;TZID=Europe/Paris:20260627T070000
-SUMMARY:🏆 Nouvelle-Zélande 🇳🇿 vs Belgique 🇧🇪
+SUMMARY:🏆 🇳🇿 Nouvelle-Zélande vs 🇧🇪 Belgique
 LOCATION:Vancouver
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe G - Vancouver
 END:VEVENT
@@ -585,7 +585,7 @@ UID:5f749f2b-0d57-416b-8f3d-08a69c578598@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260627T020000
 DTEND;TZID=Europe/Paris:20260627T040000
-SUMMARY:🏆 Cap-Vert 🇨🇻 vs Arabie Saoudite 🇸🇦
+SUMMARY:🏆 🇨🇻 Cap-Vert vs 🇸🇦 Arabie Saoudite
 LOCATION:Houston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe H - Houston
 END:VEVENT
@@ -594,7 +594,7 @@ UID:d3d6a082-11e5-456d-96ae-2019bcff00b2@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260627T020000
 DTEND;TZID=Europe/Paris:20260627T040000
-SUMMARY:🏆 Uruguay 🇺🇾 vs Espagne 🇪🇸
+SUMMARY:🏆 🇺🇾 Uruguay vs 🇪🇸 Espagne
 LOCATION:Guadalajara
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe H - Guadalajara
 END:VEVENT
@@ -603,7 +603,7 @@ UID:4004fcdc-4c6c-4376-8cad-3593f0757f68@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260626T210000
 DTEND;TZID=Europe/Paris:20260626T230000
-SUMMARY:🏆⭐ Norvège 🇳🇴 vs France 🇫🇷
+SUMMARY:🏆⭐ 🇳🇴 Norvège vs 🇫🇷 France
 LOCATION:Boston
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe I - Boston
 END:VEVENT
@@ -612,7 +612,7 @@ UID:d980e8d9-c83d-454a-a131-8143c8baa498@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260626T210000
 DTEND;TZID=Europe/Paris:20260626T230000
-SUMMARY:🏆 Sénégal 🇸🇳 vs Irak 🇮🇶
+SUMMARY:🏆 🇸🇳 Sénégal vs 🇮🇶 Irak
 LOCATION:Toronto
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe I - Toronto
 END:VEVENT
@@ -621,7 +621,7 @@ UID:a0c97e16-344c-4962-86bb-9478415ecf04@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260628T040000
 DTEND;TZID=Europe/Paris:20260628T060000
-SUMMARY:🏆 Algérie 🇩🇿 vs Autriche 🇦🇹
+SUMMARY:🏆 🇩🇿 Algérie vs 🇦🇹 Autriche
 LOCATION:Kansas City
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe J - Kansas City
 END:VEVENT
@@ -630,7 +630,7 @@ UID:89c2f012-8f0b-4322-b3d7-c32736a2d5b8@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260628T040000
 DTEND;TZID=Europe/Paris:20260628T060000
-SUMMARY:🏆 Jordanie 🇯🇴 vs Argentine 🇦🇷
+SUMMARY:🏆 🇯🇴 Jordanie vs 🇦🇷 Argentine
 LOCATION:Dallas
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe J - Dallas
 END:VEVENT
@@ -639,7 +639,7 @@ UID:2d4a8dc5-2390-4110-b592-61b49f3d7f64@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260628T013000
 DTEND;TZID=Europe/Paris:20260628T033000
-SUMMARY:🏆 Colombie 🇨🇴 vs Portugal 🇵🇹
+SUMMARY:🏆 🇨🇴 Colombie vs 🇵🇹 Portugal
 LOCATION:Miami
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe K - Miami
 END:VEVENT
@@ -648,7 +648,7 @@ UID:cfb5021c-02d3-4a82-ae38-da053ea1d000@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260628T013000
 DTEND;TZID=Europe/Paris:20260628T033000
-SUMMARY:🏆 RD Congo 🇨🇩 vs Ouzbékistan 🇺🇿
+SUMMARY:🏆 🇨🇩 RD Congo vs 🇺🇿 Ouzbékistan
 LOCATION:Atlanta
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe K - Atlanta
 END:VEVENT
@@ -657,7 +657,7 @@ UID:470728b7-4f77-4a08-be6b-6ef63912c2e7@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260627T230000
 DTEND;TZID=Europe/Paris:20260628T010000
-SUMMARY:🏆 Panama 🇵🇦 vs Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿
+SUMMARY:🏆 🇵🇦 Panama vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre
 LOCATION:New York/New Jersey
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe L - New York/New Jersey
 END:VEVENT
@@ -666,7 +666,7 @@ UID:0b38f690-03db-4b3f-893e-d87a8b81a670@cdm2026
 DTSTAMP:20260604T000000Z
 DTSTART;TZID=Europe/Paris:20260627T230000
 DTEND;TZID=Europe/Paris:20260628T010000
-SUMMARY:🏆 Croatie 🇭🇷 vs Ghana 🇬🇭
+SUMMARY:🏆 🇭🇷 Croatie vs 🇬🇭 Ghana
 LOCATION:Philadelphia
 DESCRIPTION:Coupe du Monde FIFA 2026 - Groupe L - Philadelphia
 END:VEVENT
