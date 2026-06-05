@@ -2,7 +2,73 @@
 <html lang="fr"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Coupe du Monde 2026 · Calendrier</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Coupe du Monde 2026 · Calendrier</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style>
@@ -582,12 +648,69 @@
     border:1px solid rgba(233,185,73,.18);
     background:rgba(255,255,255,.02);
   }
+  .standings-fallback{
+    border-radius:14px;padding:18px 20px;margin-bottom:14px;
+    border:1px solid rgba(233,185,73,.28);
+    background:rgba(233,185,73,.08);
+    color:#f0d99a;font-size:.9rem;line-height:1.5;text-align:center;
+  }
   api-sports-widget{
     --primary-font-size:.82rem;
     --secondary-font-size:.8rem;
     --button-font-size:.8rem;
     --title-font-size:.9rem;
     display:block;
+  }
+
+  /* ---------- ONGLETS (Calendrier / Classement) ---------- */
+  .tabs{
+    position:sticky; top:0; z-index:60;
+    display:flex; gap:8px;
+    width:100%; max-width:480px; margin:18px auto 0;
+    padding:12px 20px;
+    background:linear-gradient(180deg, rgba(7,10,21,.94), rgba(7,10,21,.74));
+    backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .tab{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
+    padding:13px 10px; border-radius:13px;
+    font-family:'Manrope',sans-serif; font-size:14.5px; font-weight:800; letter-spacing:.01em;
+    color:var(--muted); background:var(--glass); border:1px solid var(--line);
+    cursor:pointer; transition:transform .15s ease, background .25s ease, color .2s ease, box-shadow .25s ease;
+  }
+  .tab .ti{font-size:16px;line-height:1;}
+  .tab:active{transform:scale(.97);}
+  .tab[aria-selected="true"]{
+    color:#241a06;
+    background:linear-gradient(180deg,var(--gold-1),var(--gold-2));
+    border-color:transparent;
+    box-shadow:0 10px 24px -12px rgba(216,175,82,.85), inset 0 1px 0 rgba(255,255,255,.5);
+  }
+  .tab .pip{
+    width:6px;height:6px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 8px var(--green);
+    animation:pippulse 1.8s ease-in-out infinite;
+  }
+  .tab[aria-selected="true"] .pip{background:#0c5; box-shadow:none;}
+  @keyframes pippulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  .panel[hidden]{display:none;}
+  .panel{animation:panelin .35s ease;}
+  @keyframes panelin{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
+
+  .class-intro{
+    text-align:center;font-size:13px;color:var(--muted);
+    margin:6px auto 18px;max-width:360px;line-height:1.55;
+  }
+  .class-intro b{color:var(--gold-1);font-weight:700;}
+
+  @media (min-width:900px){
+    .tabs{max-width:940px;}
+    .panel[data-panel="classement"] .standings-wrap{
+      width:min(940px,94vw);margin:0 auto;
+    }
   }
 </style>
 <script type="module" crossorigin src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
@@ -615,6 +738,19 @@
       <p class="cd-foot">Match d'ouverture · <b>jeudi 11 juin 2026</b></p>
     </section>
   </header>
+
+  <!-- ONGLETS -->
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" id="tab-calendrier" role="tab" aria-selected="true" aria-controls="panel-calendrier" data-tab="calendrier">
+      <span class="ti" aria-hidden="true">📅</span> Calendrier
+    </button>
+    <button class="tab" id="tab-classement" role="tab" aria-selected="false" aria-controls="panel-classement" data-tab="classement">
+      <span class="ti" aria-hidden="true">📊</span> Classement <span class="pip" aria-hidden="true"></span>
+    </button>
+  </nav>
+
+  <!-- PANEL : CALENDRIER -->
+  <div class="panel" data-panel="calendrier" id="panel-calendrier" role="tabpanel" aria-labelledby="tab-calendrier">
 
   <!-- INFO BOX -->
   <div class="info" role="note">
@@ -748,14 +884,19 @@
     <a class="btn btn-join" href="https://mpp.go.link/4eCeA" target="_blank" rel="noopener">Rejoindre la ligue →</a>
   </section>
 
-  <!-- CLASSEMENT EN DIRECT -->
-  <section class="parcours" data-screen-label="classement">
-    <div class="sec-head"><span class="lbl">📊 Classement en direct</span><span class="ln"></span></div>
-    <p class="parcours-note" style="margin-bottom:16px;">Les 12 groupes (A à L) · mis à jour à chaque ouverture de la page pendant le tournoi.</p>
-    <div class="standings-wrap">
-      <api-sports-widget data-type="standings"></api-sports-widget>
-    </div>
-  </section>
+  </div><!-- /panel calendrier -->
+
+  <!-- PANEL : CLASSEMENT -->
+  <div class="panel" data-panel="classement" id="panel-classement" role="tabpanel" aria-labelledby="tab-classement" hidden="">
+    <section class="parcours" data-screen-label="classement">
+      <div class="sec-head"><span class="lbl">📊 Classement en direct</span><span class="ln"></span></div>
+      <p class="class-intro">Les <b>12 groupes (A → L)</b> de la phase de poules · mis à jour à chaque ouverture pendant le tournoi.</p>
+      <div class="standings-fallback" id="standings-fallback">⚽ Le classement s'affichera dès le coup d'envoi, le <b>11 juin 2026</b>. Revenez pendant le tournoi pour suivre les groupes en direct !</div>
+      <div class="standings-wrap">
+        <api-sports-widget data-type="standings"></api-sports-widget>
+      </div>
+    </section>
+  </div><!-- /panel classement -->
 
   <!-- FOOTER NOTE -->
   <footer class="foot">
@@ -834,6 +975,27 @@
     }
     tick();
     setInterval(tick, 1000);
+  })();
+</script>
+
+<script>
+  // ---- Onglets Calendrier / Classement ----
+  (function(){
+    var tabs   = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+    var panels = Array.prototype.slice.call(document.querySelectorAll(".panel"));
+    var bar    = document.getElementById("tabs");
+    function activate(name, scroll){
+      tabs.forEach(function(t){ t.setAttribute("aria-selected", t.dataset.tab === name ? "true" : "false"); });
+      panels.forEach(function(p){ p.hidden = p.dataset.panel !== name; });
+      if (scroll){
+        window.scrollTo({ top: bar.offsetTop, behavior: "smooth" });
+      }
+      // pousser les widgets intégrés à recalculer leur mise en page
+      try { window.dispatchEvent(new Event("resize")); } catch(e){}
+    }
+    tabs.forEach(function(t){
+      t.addEventListener("click", function(){ activate(t.dataset.tab, true); });
+    });
   })();
 </script>
 
@@ -1203,17 +1365,26 @@
 </script>
 
 <!-- CONFIG WIDGET API-FOOTBALL — remplace MA_CLE_API_ICI par ta clé -->
-<api-sports-widget
-  data-type="config"
-  data-key="0661f984fe7d56783be21927a2bbddbc"
-  data-sport="football"
-  data-lang="fr"
-  data-theme="dark"
-  data-show-errors="false"
-  data-show-logos="true"
-  data-refresh="false"
-  data-standings="true"
-  data-league="1"
-  data-season="2026"
-></api-sports-widget>
+<api-sports-widget data-type="config" data-key="0661f984fe7d56783be21927a2bbddbc" data-sport="football" data-lang="fr" data-theme="dark" data-show-errors="false" data-show-logos="true" data-refresh="false" data-standings="true" data-league="1" data-season="2026"></api-sports-widget>
+
+
+<script>
+  // Masque le message de repli si le widget classement affiche du contenu réel
+  (function(){
+    var fb = document.getElementById('standings-fallback');
+    var wrap = document.querySelector('.standings-wrap');
+    if(!fb || !wrap) return;
+    function check(){
+      // Si le widget a chargé un tableau (présence de lignes/contenu substantiel), on masque le repli
+      var txt = wrap.innerText || '';
+      var hasTable = wrap.querySelector('table, [class*="standing"], [class*="row"]');
+      if(hasTable && txt.replace(/\s/g,'').length > 40 && !/aucun classement/i.test(txt)){
+        fb.style.display = 'none';
+      }
+    }
+    // Vérifie périodiquement pendant 30s après chargement (le widget est async)
+    var n = 0, iv = setInterval(function(){ check(); if(++n > 15) clearInterval(iv); }, 2000);
+    window.addEventListener('load', check);
+  })();
+</script>
 </body></html>
