@@ -644,23 +644,74 @@
     color:var(--faint);
   }
   .standings-wrap{
-    border-radius:18px;overflow:hidden;
-    border:1px solid rgba(233,185,73,.18);
-    background:rgba(255,255,255,.02);
+    border-radius:18px;
+    border:1px solid rgba(233,185,73,.12);
+    background:rgba(255,255,255,.015);
+    padding:14px 14px 18px;
   }
-  .standings-fallback{
-    border-radius:14px;padding:18px 20px;margin-bottom:14px;
-    border:1px solid rgba(233,185,73,.28);
-    background:rgba(233,185,73,.08);
-    color:#f0d99a;font-size:.9rem;line-height:1.5;text-align:center;
+  @media (max-width:520px){ .standings-wrap{padding:10px 8px 14px;} }
+
+  /* ---------- CLASSEMENT (tables maison) ---------- */
+  #standings-root{display:grid;gap:16px;margin-top:4px;}
+  @media(min-width:680px){ #standings-root{grid-template-columns:1fr 1fr;} }
+  @media(min-width:1040px){ #standings-root{grid-template-columns:1fr 1fr 1fr;} }
+
+  .grp{
+    border:1px solid var(--line);border-radius:16px;
+    background:var(--glass-strong);backdrop-filter:blur(8px);
+    overflow:hidden;box-shadow:var(--shadow);
   }
-  api-sports-widget{
-    --primary-font-size:.82rem;
-    --secondary-font-size:.8rem;
-    --button-font-size:.8rem;
-    --title-font-size:.9rem;
-    display:block;
+  .grp.has-fr{border-color:rgba(243,216,137,.4);box-shadow:0 18px 44px -26px rgba(216,175,82,.5),var(--shadow);}
+  .grp-h{
+    display:flex;align-items:center;gap:9px;
+    padding:12px 14px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(243,216,137,.10),transparent);
   }
+  .grp-h .gtag{
+    font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.04em;
+    color:#241a06;background:linear-gradient(180deg,var(--gold-1),var(--gold-2));
+    padding:3px 10px;border-radius:8px;
+  }
+  .grp-h .gname{font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--ink);}
+  .grp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  table.std{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+  table.std th,table.std td{padding:8px 5px;font-size:12px;text-align:center;white-space:nowrap;}
+  table.std thead th{
+    font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--faint);border-bottom:1px solid var(--line);
+  }
+  table.std th.team,table.std td.team{text-align:left;white-space:normal;padding-left:12px;min-width:118px;}
+  table.std td.team{font-weight:700;font-size:12.5px;color:var(--ink);line-height:1.25;}
+  table.std td.rk{color:var(--faint);font-weight:800;width:18px;padding-left:8px;}
+  table.std td.pts{font-weight:800;color:var(--gold-1);font-size:13px;}
+  table.std tbody tr{border-bottom:1px solid rgba(255,255,255,.05);}
+  table.std tbody tr:last-child{border-bottom:none;}
+  table.std tbody tr.qual{background:linear-gradient(90deg,rgba(52,199,133,.10),transparent 70%);}
+  table.std tbody tr.qual td.rk{color:var(--green);}
+  table.std tbody tr.fr{background:linear-gradient(90deg,rgba(243,216,137,.16),rgba(243,216,137,.03) 75%);}
+  table.std tbody tr.fr td.team{color:var(--gold-1);}
+  .std-muted{color:var(--faint);}
+
+  .class-foot{
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
+    margin-top:18px;font-size:11.5px;color:var(--faint);
+  }
+  .class-foot .lg{display:inline-flex;align-items:center;gap:6px;}
+  .class-foot .sw{width:18px;height:12px;border-radius:3px;display:inline-block;}
+  .class-foot .sw.q{background:linear-gradient(90deg,rgba(52,199,133,.5),rgba(52,199,133,.12));}
+  .class-foot .sw.f{background:linear-gradient(90deg,rgba(243,216,137,.6),rgba(243,216,137,.12));}
+
+  .class-state{
+    text-align:center;padding:34px 16px;color:var(--muted);font-size:14px;
+  }
+  .class-state .spin{
+    width:30px;height:30px;margin:0 auto 14px;border-radius:50%;
+    border:3px solid rgba(243,216,137,.25);border-top-color:var(--gold-1);
+    animation:spin 0.9s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
 
   /* ---------- ONGLETS (Calendrier / Classement) ---------- */
   .tabs{
@@ -709,11 +760,10 @@
   @media (min-width:900px){
     .tabs{max-width:940px;}
     .panel[data-panel="classement"] .standings-wrap{
-      width:min(940px,94vw);margin:0 auto;
+      width:min(960px,94vw);margin:0 auto;
     }
   }
 </style>
-<script type="module" crossorigin src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
 </head>
 <body>
 
@@ -890,10 +940,15 @@
   <div class="panel" data-panel="classement" id="panel-classement" role="tabpanel" aria-labelledby="tab-classement" hidden="">
     <section class="parcours" data-screen-label="classement">
       <div class="sec-head"><span class="lbl">📊 Classement en direct</span><span class="ln"></span></div>
-      <p class="class-intro">Les <b>12 groupes (A → L)</b> de la phase de poules · mis à jour à chaque ouverture pendant le tournoi.</p>
-      <div class="standings-fallback" id="standings-fallback">⚽ Le classement s'affichera dès le coup d'envoi, le <b>11 juin 2026</b>. Revenez pendant le tournoi pour suivre les groupes en direct !</div>
+      <p class="class-intro">Les <b>12 groupes (A → L)</b> de la phase de poules · calculé en direct depuis les scores officiels, recalculé à chaque ouverture.</p>
       <div class="standings-wrap">
-        <api-sports-widget data-type="standings"></api-sports-widget>
+        <div id="standings-root">
+          <div class="class-state"><div class="spin"></div>Chargement du classement…</div>
+        </div>
+        <div class="class-foot">
+          <span class="lg"><span class="sw q"></span> 2 premiers · qualifiés directs</span>
+          <span class="lg"><span class="sw f"></span> 🇫🇷 France</span>
+        </div>
       </div>
     </section>
   </div><!-- /panel classement -->
@@ -996,6 +1051,128 @@
     tabs.forEach(function(t){
       t.addEventListener("click", function(){ activate(t.dataset.tab, true); });
     });
+  })();
+</script>
+
+<script>
+  // =========================================================================
+  //  CLASSEMENT EN DIRECT — calcul maison depuis openfootball/worldcup.json
+  // =========================================================================
+  (function(){
+    var DATA_URL = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
+    var ROOT = document.getElementById("standings-root");
+    if (!ROOT) return;
+
+    // --- Traduction FR + drapeaux (équipes 2026 + barrages + réserve) ---
+    var FLAGS = {
+      "Mexico":"🇲🇽 Mexique","South Africa":"🇿🇦 Afrique du Sud","South Korea":"🇰🇷 Corée du Sud",
+      "Canada":"🇨🇦 Canada","Qatar":"🇶🇦 Qatar","Switzerland":"🇨🇭 Suisse",
+      "Brazil":"🇧🇷 Brésil","Morocco":"🇲🇦 Maroc","Haiti":"🇭🇹 Haïti","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Écosse",
+      "USA":"🇺🇸 États-Unis","Paraguay":"🇵🇾 Paraguay","Australia":"🇦🇺 Australie",
+      "Germany":"🇩🇪 Allemagne","Curaçao":"🇨🇼 Curaçao","Ivory Coast":"🇨🇮 Côte d'Ivoire","Ecuador":"🇪🇨 Équateur",
+      "Netherlands":"🇳🇱 Pays-Bas","Japan":"🇯🇵 Japon","Tunisia":"🇹🇳 Tunisie",
+      "Belgium":"🇧🇪 Belgique","Egypt":"🇪🇬 Égypte","Iran":"🇮🇷 Iran","New Zealand":"🇳🇿 Nouvelle-Zélande",
+      "Spain":"🇪🇸 Espagne","Cape Verde":"🇨🇻 Cap-Vert","Saudi Arabia":"🇸🇦 Arabie saoudite","Uruguay":"🇺🇾 Uruguay",
+      "France":"🇫🇷 France","Senegal":"🇸🇳 Sénégal","Norway":"🇳🇴 Norvège",
+      "Argentina":"🇦🇷 Argentine","Algeria":"🇩🇿 Algérie","Austria":"🇦🇹 Autriche","Jordan":"🇯🇴 Jordanie",
+      "Portugal":"🇵🇹 Portugal","Uzbekistan":"🇺🇿 Ouzbékistan","Colombia":"🇨🇴 Colombie",
+      "England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre","Croatia":"🇭🇷 Croatie","Ghana":"🇬🇭 Ghana","Panama":"🇵🇦 Panama",
+      // --- réserve (si des barrages se résolvent en vraies nations) ---
+      "Italy":"🇮🇹 Italie","Nigeria":"🇳🇬 Nigeria","Cameroon":"🇨🇲 Cameroun","Wales":"🏴󠁧󠁢󠁷󠁬󠁳󠁿 Pays de Galles",
+      "Denmark":"🇩🇰 Danemark","Sweden":"🇸🇪 Suède","Poland":"🇵🇱 Pologne","Serbia":"🇷🇸 Serbie",
+      "Turkey":"🇹🇷 Turquie","Ukraine":"🇺🇦 Ukraine","Czech Republic":"🇨🇿 Tchéquie","Czechia":"🇨🇿 Tchéquie",
+      "Greece":"🇬🇷 Grèce","Romania":"🇷🇴 Roumanie","Hungary":"🇭🇺 Hongrie","Slovakia":"🇸🇰 Slovaquie",
+      "Slovenia":"🇸🇮 Slovénie","Republic of Ireland":"🇮🇪 Irlande","Iceland":"🇮🇸 Islande","Finland":"🇫🇮 Finlande",
+      "Albania":"🇦🇱 Albanie","North Macedonia":"🇲🇰 Macédoine du Nord","Bosnia and Herzegovina":"🇧🇦 Bosnie-Herzégovine",
+      "Georgia":"🇬🇪 Géorgie","Israel":"🇮🇱 Israël","Kosovo":"🇽🇰 Kosovo","Montenegro":"🇲🇪 Monténégro",
+      "Peru":"🇵🇪 Pérou","Chile":"🇨🇱 Chili","Bolivia":"🇧🇴 Bolivie","Venezuela":"🇻🇪 Venezuela",
+      "Costa Rica":"🇨🇷 Costa Rica","Honduras":"🇭🇳 Honduras","Jamaica":"🇯🇲 Jamaïque","El Salvador":"🇸🇻 Salvador",
+      "Guatemala":"🇬🇹 Guatemala","Trinidad and Tobago":"🇹🇹 Trinité-et-Tobago","Suriname":"🇸🇷 Suriname",
+      "Iraq":"🇮🇶 Irak","United Arab Emirates":"🇦🇪 Émirats arabes unis","UAE":"🇦🇪 Émirats arabes unis",
+      "Oman":"🇴🇲 Oman","Bahrain":"🇧🇭 Bahreïn","Kuwait":"🇰🇼 Koweït","Lebanon":"🇱🇧 Liban",
+      "China PR":"🇨🇳 Chine","China":"🇨🇳 Chine","Thailand":"🇹🇭 Thaïlande","Vietnam":"🇻🇳 Vietnam",
+      "Indonesia":"🇮🇩 Indonésie","North Korea":"🇰🇵 Corée du Nord","Kazakhstan":"🇰🇿 Kazakhstan",
+      "DR Congo":"🇨🇩 RD Congo","Mali":"🇲🇱 Mali","Burkina Faso":"🇧🇫 Burkina Faso","Cameroon ":"🇨🇲 Cameroun",
+      "Guinea":"🇬🇳 Guinée","Zambia":"🇿🇲 Zambie","Angola":"🇦🇴 Angola","Gabon":"🇬🇦 Gabon",
+      "Mauritania":"🇲🇷 Mauritanie","Benin":"🇧🇯 Bénin","Namibia":"🇳🇦 Namibie","Comoros":"🇰🇲 Comores",
+      "Uganda":"🇺🇬 Ouganda","Tanzania":"🇹🇿 Tanzanie","Kenya":"🇰🇪 Kenya","Madagascar":"🇲🇬 Madagascar"
+    };
+
+    function label(name){
+      if (FLAGS[name]) return FLAGS[name];
+      var m = name.match(/UEFA Path ([A-D]) winner/i);
+      if (m) return "🎟️ Barrage UEFA " + m[1].toUpperCase();
+      m = name.match(/IC Path (\d) winner/i);
+      if (m) return "🎟️ Barrage intercont. " + m[1];
+      return "🏳️ " + name;
+    }
+
+    function compute(matches){
+      var groups = {};
+      matches.forEach(function(mt){
+        if (!mt.group) return;                 // ignore phases finales
+        var g = groups[mt.group] || (groups[mt.group] = {});
+        [mt.team1, mt.team2].forEach(function(t){
+          if (!g[t]) g[t] = { name:t, ord:Object.keys(g).length, J:0, G:0, N:0, P:0, BP:0, BC:0, Pts:0 };
+        });
+        if (mt.score && mt.score.ft && mt.score.ft.length === 2){
+          var a = +mt.score.ft[0], b = +mt.score.ft[1];
+          var t1 = g[mt.team1], t2 = g[mt.team2];
+          t1.J++; t2.J++;
+          t1.BP += a; t1.BC += b; t2.BP += b; t2.BC += a;
+          if (a > b){ t1.G++; t2.P++; t1.Pts += 3; }
+          else if (a < b){ t2.G++; t1.P++; t2.Pts += 3; }
+          else { t1.N++; t2.N++; t1.Pts++; t2.Pts++; }
+        }
+      });
+      return groups;
+    }
+
+    function sortTeams(arr){
+      return arr.sort(function(x, y){
+        var dx = x.BP - x.BC, dy = y.BP - y.BC;
+        return (y.Pts - x.Pts) || (dy - dx) || (y.BP - x.BP) || (x.ord - y.ord);
+      });
+    }
+
+    function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); }
+
+    function render(groups){
+      var keys = Object.keys(groups).sort();
+      if (!keys.length){ ROOT.innerHTML = '<div class="class-state std-muted">Aucun groupe disponible pour le moment.</div>'; return; }
+      var html = "";
+      keys.forEach(function(gk){
+        var teams = sortTeams(Object.keys(groups[gk]).map(function(k){ return groups[gk][k]; }));
+        var hasFr = teams.some(function(t){ return t.name === "France"; });
+        var letter = gk.replace(/Group\s*/i, "");
+        html += '<div class="grp' + (hasFr ? " has-fr" : "") + '">';
+        html += '<div class="grp-h"><span class="gtag">Groupe ' + esc(letter) + '</span></div>';
+        html += '<div class="grp-scroll"><table class="std"><thead><tr>' +
+                '<th></th><th class="team">Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th>' +
+                '<th>BP</th><th>BC</th><th>Diff</th><th>Pts</th></tr></thead><tbody>';
+        teams.forEach(function(t, i){
+          var diff = t.BP - t.BC, ds = (diff > 0 ? "+" : "") + diff;
+          var cls = [(i < 2 ? "qual" : ""), (t.name === "France" ? "fr" : "")].join(" ").trim();
+          html += '<tr' + (cls ? ' class="' + cls + '"' : "") + '>' +
+            '<td class="rk">' + (i + 1) + '</td>' +
+            '<td class="team">' + label(t.name) + '</td>' +
+            '<td>' + t.J + '</td><td>' + t.G + '</td><td>' + t.N + '</td><td>' + t.P + '</td>' +
+            '<td>' + t.BP + '</td><td>' + t.BC + '</td><td>' + ds + '</td>' +
+            '<td class="pts">' + t.Pts + '</td></tr>';
+        });
+        html += '</tbody></table></div></div>';
+      });
+      ROOT.innerHTML = html;
+    }
+
+    function fail(){
+      ROOT.innerHTML = '<div class="class-state std-muted">⚠️ Classement temporairement indisponible.<br>Vérifie ta connexion et réessaie plus tard.</div>';
+    }
+
+    fetch(DATA_URL, { cache:"no-store" })
+      .then(function(r){ if (!r.ok) throw new Error("http"); return r.json(); })
+      .then(function(data){ render(compute((data && data.matches) || [])); })
+      .catch(fail);
   })();
 </script>
 
@@ -1364,27 +1541,5 @@
   })();
 </script>
 
-<!-- CONFIG WIDGET API-FOOTBALL — remplace MA_CLE_API_ICI par ta clé -->
-<api-sports-widget data-type="config" data-key="0661f984fe7d56783be21927a2bbddbc" data-sport="football" data-lang="fr" data-theme="dark" data-show-errors="false" data-show-logos="true" data-refresh="false" data-standings="true" data-league="1" data-season="2026"></api-sports-widget>
 
-
-<script>
-  // Masque le message de repli si le widget classement affiche du contenu réel
-  (function(){
-    var fb = document.getElementById('standings-fallback');
-    var wrap = document.querySelector('.standings-wrap');
-    if(!fb || !wrap) return;
-    function check(){
-      // Si le widget a chargé un tableau (présence de lignes/contenu substantiel), on masque le repli
-      var txt = wrap.innerText || '';
-      var hasTable = wrap.querySelector('table, [class*="standing"], [class*="row"]');
-      if(hasTable && txt.replace(/\s/g,'').length > 40 && !/aucun classement/i.test(txt)){
-        fb.style.display = 'none';
-      }
-    }
-    // Vérifie périodiquement pendant 30s après chargement (le widget est async)
-    var n = 0, iv = setInterval(function(){ check(); if(++n > 15) clearInterval(iv); }, 2000);
-    window.addEventListener('load', check);
-  })();
-</script>
 </body></html>
