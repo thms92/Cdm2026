@@ -763,9 +763,62 @@
       width:min(960px,94vw);margin:0 auto;
     }
   }
+
+  /* ---------- PROCHAIN MATCH BAR ---------- */
+  .nm-bar{
+    position:sticky;top:0;z-index:110;
+    background:linear-gradient(180deg,rgba(10,15,30,.97),rgba(7,10,21,.95));
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  }
+  .nm-inner{max-width:480px;margin:0 auto;padding:12px 20px 14px;}
+  .nm-lbl{
+    font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold-1);margin-bottom:8px;display:flex;align-items:center;gap:8px;
+  }
+  .nm-lbl::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
+  .nm-teams{
+    font-size:17px;font-weight:800;letter-spacing:-.01em;
+    text-align:center;margin-bottom:6px;color:var(--ink);
+  }
+  .nm-vs{color:var(--faint);font-weight:600;margin:0 5px;}
+  .nm-meta{font-size:11.5px;color:var(--muted);text-align:center;margin-bottom:10px;}
+  .nm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
+  .nm-cell{
+    background:var(--glass);border:1px solid var(--line);border-radius:11px;
+    padding:7px 4px 5px;text-align:center;position:relative;overflow:hidden;
+  }
+  .nm-cell::after{
+    content:"";position:absolute;inset:0 0 auto 0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(243,216,137,.4),transparent);
+  }
+  .nm-num{
+    font-family:'Anton',sans-serif;font-size:22px;line-height:1;
+    color:var(--ink);font-variant-numeric:tabular-nums;
+  }
+  .nm-unit{
+    display:block;margin-top:3px;font-size:9px;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+  }
+  @media(min-width:900px){.nm-inner{max-width:940px;}}
 </style>
 </head>
 <body>
+
+<!-- PROCHAIN MATCH BAR -->
+<div id="nm-bar" class="nm-bar" style="display:none" role="complementary" aria-label="Prochain match">
+  <div class="nm-inner">
+    <div class="nm-lbl" id="nm-lbl-txt">⏱️ Prochain match</div>
+    <div class="nm-teams" id="nm-teams">–</div>
+    <div class="nm-meta" id="nm-meta"></div>
+    <div class="nm-grid">
+      <div class="nm-cell"><div class="nm-num" id="nm-d">00</div><span class="nm-unit">Jours</span></div>
+      <div class="nm-cell"><div class="nm-num" id="nm-h">00</div><span class="nm-unit">Heures</span></div>
+      <div class="nm-cell"><div class="nm-num" id="nm-m">00</div><span class="nm-unit">Min</span></div>
+      <div class="nm-cell"><div class="nm-num" id="nm-s">00</div><span class="nm-unit">Sec</span></div>
+    </div>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -1011,8 +1064,8 @@
 
   // ---- Compte à rebours jusqu'au 11 juin 2026, coup d'envoi ----
   (function(){
-    // 11 juin 2026, 18:00 heure de Paris (UTC+2 en été) -> 16:00 UTC
-    var KICKOFF = new Date(Date.UTC(2026, 5, 11, 16, 0, 0));
+    // 11 juin 2026, 21:00 heure de Paris (UTC+2 en été) -> 19:00 UTC
+    var KICKOFF = new Date(Date.UTC(2026, 5, 11, 19, 0, 0));
     var d=document.getElementById("cd-d"),h=document.getElementById("cd-h"),
         m=document.getElementById("cd-m"),s=document.getElementById("cd-s");
     function p(n){ return (n<10?"0":"")+n; }
@@ -1540,6 +1593,143 @@
       });
     };
   })();
+</script>
+
+<script>
+// =========================================================================
+//  PROCHAIN MATCH — lu directement depuis cdm2026.ics (même source que le
+//  calendrier Apple/Google). Les DTSTART sont en heure de Paris (TZID=
+//  Europe/Paris), donc zéro conversion de fuseau horaire à faire.
+// =========================================================================
+(function(){
+  var ICS_URL = "cdm2026.ics";
+  var bar    = document.getElementById("nm-bar");
+  var elLbl  = document.getElementById("nm-lbl-txt");
+  var elTeam = document.getElementById("nm-teams");
+  var elMeta = document.getElementById("nm-meta");
+  var elD    = document.getElementById("nm-d");
+  var elH    = document.getElementById("nm-h");
+  var elM    = document.getElementById("nm-m");
+  var elS    = document.getElementById("nm-s");
+  if (!bar) return;
+
+  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+
+  var MO = ["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+  var DJ = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
+
+  function parisfmt(utcMs) {
+    // Paris CEST = UTC+2 (toute la durée de la CDM 2026, juin-juillet)
+    var d = new Date(utcMs + 7200000);
+    var hh = String(d.getUTCHours()).padStart(2,"0");
+    var mm = String(d.getUTCMinutes()).padStart(2,"0");
+    return DJ[d.getUTCDay()] + " " + d.getUTCDate() + " " + MO[d.getUTCMonth()] + " · " + hh + "h" + mm;
+  }
+
+  function parseICS(text) {
+    var events = [];
+    // Déplie les lignes repliées (RFC 5545 : ligne suivante commence par espace/tab)
+    text = text.replace(/\r\n[ \t]/g,"").replace(/\r/g,"");
+    var blocks = text.split("BEGIN:VEVENT");
+    for (var i = 1; i < blocks.length; i++) {
+      var b = blocks[i];
+
+      // DTSTART;TZID=Europe/Paris:20260611T210000  ← heure locale Paris
+      // DTSTART:20260611T190000Z                   ← UTC (cas rare)
+      var dtm = b.match(/DTSTART(?:;([^:]+))?:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})/);
+      if (!dtm) continue;
+      var tzParam = (dtm[1] || "").toLowerCase();
+      var yr = +dtm[2], mo = +dtm[3]-1, dy = +dtm[4], hh = +dtm[5], mm = +dtm[6];
+
+      var utcMs;
+      if (tzParam.indexOf("paris") !== -1 || tzParam.indexOf("europe") !== -1) {
+        // Heure Paris → UTC : -2h (CEST = UTC+2)
+        utcMs = Date.UTC(yr, mo, dy, hh - 2, mm);
+      } else if (tzParam === "" && b.indexOf("DTSTART:" + dtm[2]) !== -1
+                 && /DTSTART:\d{8}T\d{6}Z/.test(b)) {
+        // Suffixe Z → déjà UTC
+        utcMs = Date.UTC(yr, mo, dy, hh, mm);
+      } else {
+        // Pas de TZID connu → on suppose Paris (cas général pour ce fichier)
+        utcMs = Date.UTC(yr, mo, dy, hh - 2, mm);
+      }
+
+      var sm = b.match(/^SUMMARY:(.+)$/m);
+      if (!sm) continue;
+      var summary = sm[1].trim();
+
+      var lm = b.match(/^LOCATION:(.+)$/m);
+      var location = lm ? lm[1].trim() : "";
+
+      var dm = b.match(/^DESCRIPTION:(.+)$/m);
+      var desc = dm ? dm[1].trim() : "";
+      var gm = desc.match(/Groupe ([A-L])/i);
+      var group = gm ? "Groupe " + gm[1].toUpperCase() : "";
+
+      events.push({ utcMs:utcMs, summary:summary, location:location, group:group });
+    }
+    return events;
+  }
+
+  function pad(n){ return (n<10?"0":"")+n; }
+
+  var targetUTC = null;
+  var allEvents = [];
+  var ticker = null;
+
+  function tick() {
+    if (!targetUTC) return;
+    var diff = targetUTC - Date.now();
+    if (diff < -7200000) { findNext(); return; }          // match terminé (>2h)
+    if (diff <= 0) {                                       // match en cours
+      if (elLbl) elLbl.textContent = "⚽ Match en cours";
+      [elD,elH,elM,elS].forEach(function(e){ if(e) e.textContent="–"; });
+      return;
+    }
+    if (elLbl) elLbl.textContent = "⏱️ Prochain match";
+    var sec = Math.floor(diff / 1000);
+    if (elD) elD.textContent = pad(Math.floor(sec / 86400));
+    if (elH) elH.textContent = pad(Math.floor(sec % 86400 / 3600));
+    if (elM) elM.textContent = pad(Math.floor(sec % 3600 / 60));
+    if (elS) elS.textContent = pad(sec % 60);
+  }
+
+  function showEvent(ev) {
+    // SUMMARY est déjà "🇲🇽 Mexique vs 🇿🇦 Afrique du Sud" — on remplace " vs " par " – "
+    var parts = ev.summary.split(/\s+vs\s+/);
+    if (parts.length >= 2) {
+      if (elTeam) elTeam.innerHTML = esc(parts[0]) + '<span class="nm-vs">–</span>' + esc(parts[1]);
+    } else {
+      if (elTeam) elTeam.textContent = ev.summary;
+    }
+    var meta = parisfmt(ev.utcMs) + " (Paris)";
+    if (ev.location) meta += " · " + ev.location;
+    if (ev.group)    meta += " · " + ev.group;
+    if (elMeta) elMeta.textContent = meta;
+
+    targetUTC = ev.utcMs;
+    bar.style.display = "";
+    if (ticker) clearInterval(ticker);
+    tick();
+    ticker = setInterval(tick, 1000);
+  }
+
+  function findNext() {
+    var now = Date.now();
+    var best = null;
+    for (var i = 0; i < allEvents.length; i++) {
+      var ev = allEvents[i];
+      if (ev.utcMs + 7200000 > now && (!best || ev.utcMs < best.utcMs)) best = ev;
+    }
+    if (best) showEvent(best);
+    else bar.style.display = "none"; // tournoi terminé
+  }
+
+  fetch(ICS_URL, { cache:"no-store" })
+    .then(function(r){ if (!r.ok) throw new Error("http"); return r.text(); })
+    .then(function(text){ allEvents = parseICS(text); findNext(); })
+    .catch(function(){ /* barre masquée silencieusement */ });
+})();
 </script>
 
 
