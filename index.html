@@ -1161,6 +1161,49 @@
       return "🏳️ " + name;
     }
 
+    // --- Scores en direct (TheSportsDB) superposés sur le squelette openfootball ---
+    // Squelette openfootball = groupes + 104 matchs ; TheSportsDB = scores réels.
+    // On associe les deux par nom d'équipe normalisé (insensible aux accents/ponctuation).
+    var ALIAS = {                       // openfootball ↔ TheSportsDB quand les noms diffèrent
+      "bosniaandherzegovina":"bosniaherzegovina",
+      "korearepublic":"southkorea", "irrep":"iran", "usmnt":"usa"
+    };
+    function norm(s){
+      var n = String(s).normalize("NFD").replace(/[̀-ͯ]/g,"")
+        .toLowerCase().replace(/[^a-z0-9]/g,"");
+      return ALIAS[n] || n;
+    }
+    function pairKey(x, y){ return [norm(x), norm(y)].sort().join("|"); }
+
+    // Saisie manuelle de secours : si TheSportsDB tarde sur un match précis,
+    // ajoute ici { team1:"Mexico", team2:"South Africa", ft:[2,0] }. Prioritaire.
+    var MANUAL_SCORES = [];
+
+    function applyScores(matches, sdb){
+      var index = {};                   // pairKey -> { normNom: butsMarqués }
+      var events = (sdb && sdb.events) || [];
+      events.forEach(function(ev){
+        if (ev.intHomeScore == null || ev.intHomeScore === "") return;
+        if (ev.intAwayScore == null || ev.intAwayScore === "") return;
+        var rec = {};
+        rec[norm(ev.strHomeTeam)] = +ev.intHomeScore;
+        rec[norm(ev.strAwayTeam)] = +ev.intAwayScore;
+        index[pairKey(ev.strHomeTeam, ev.strAwayTeam)] = rec;
+      });
+      MANUAL_SCORES.forEach(function(m){
+        var rec = {};
+        rec[norm(m.team1)] = +m.ft[0]; rec[norm(m.team2)] = +m.ft[1];
+        index[pairKey(m.team1, m.team2)] = rec; // la saisie manuelle écrase l'API
+      });
+      matches.forEach(function(mt){
+        var rec = index[pairKey(mt.team1, mt.team2)];
+        if (!rec) return;
+        var a = rec[norm(mt.team1)], b = rec[norm(mt.team2)];
+        if (a == null || b == null) return;
+        mt.score = { ft: [a, b] };
+      });
+    }
+
     function compute(matches){
       var groups = {};
       matches.forEach(function(mt){
@@ -1223,10 +1266,22 @@
       ROOT.innerHTML = '<div class="class-state std-muted">⚠️ Classement temporairement indisponible.<br>Vérifie ta connexion et réessaie plus tard.</div>';
     }
 
-    fetch(DATA_URL, { cache:"no-store" })
-      .then(function(r){ if (!r.ok) throw new Error("http"); return r.json(); })
-      .then(function(data){ render(compute((data && data.matches) || [])); })
-      .catch(fail);
+    // TheSportsDB : clé de test gratuite "3", saison 2026 de la Coupe du monde (idLeague 4429).
+    var SCORES_URL = "https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4429&s=2026";
+
+    Promise.all([
+      fetch(DATA_URL, { cache:"no-store" })
+        .then(function(r){ if (!r.ok) throw new Error("http"); return r.json(); }),
+      // Les scores sont un bonus : si l'API échoue, on affiche quand même le squelette.
+      fetch(SCORES_URL, { cache:"no-store" })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .catch(function(){ return null; })
+    ]).then(function(res){
+      var data = res[0], sdb = res[1];
+      var matches = (data && data.matches) || [];
+      applyScores(matches, sdb);
+      render(compute(matches));
+    }).catch(fail);
   })();
 </script>
 
