@@ -676,13 +676,16 @@
   .grp-h .gname{font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--ink);}
   .grp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 
-  table.std{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
-  table.std th,table.std td{padding:8px 5px;font-size:12px;text-align:center;white-space:nowrap;}
+  table.std{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:fixed;}
+  table.std th,table.std td{padding:8px 3px;font-size:12px;text-align:center;white-space:nowrap;}
   table.std thead th{
-    font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
     color:var(--faint);border-bottom:1px solid var(--line);
   }
-  table.std th.team,table.std td.team{text-align:left;white-space:normal;padding-left:12px;min-width:118px;}
+  /* largeurs fixes : garantit que toutes les colonnes (dont Pts) tiennent dans la carte */
+  table.std col.c-rk{width:20px;} table.std col.c-n{width:23px;}
+  table.std col.c-d{width:34px;}  table.std col.c-p{width:30px;}
+  table.std th.team,table.std td.team{text-align:left;white-space:normal;padding-left:10px;min-width:0;}
   table.std td.team{font-weight:700;font-size:12.5px;color:var(--ink);line-height:1.25;}
   table.std td.rk{color:var(--faint);font-weight:800;width:18px;padding-left:8px;}
   table.std td.pts{font-weight:800;color:var(--gold-1);font-size:13px;}
@@ -693,6 +696,36 @@
   table.std tbody tr.fr{background:linear-gradient(90deg,rgba(243,216,137,.16),rgba(243,216,137,.03) 75%);}
   table.std tbody tr.fr td.team{color:var(--gold-1);}
   .std-muted{color:var(--faint);}
+
+  /* ---------- RÉSULTATS ---------- */
+  #results-root{display:grid;gap:12px;margin-top:4px;}
+  @media(min-width:680px){ #results-root{grid-template-columns:1fr 1fr;} }
+  .res-day{grid-column:1/-1;display:flex;align-items:center;gap:9px;margin:6px 2px 0;}
+  .res-day:first-child{margin-top:0;}
+  .res-day .d{
+    font-family:'Anton',sans-serif;font-size:12px;letter-spacing:.05em;text-transform:capitalize;
+    color:var(--gold-1);
+  }
+  .res-day .ln{flex:1;height:1px;background:var(--line);}
+  .res-row{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;
+    border:1px solid var(--line);border-radius:14px;
+    background:var(--glass-strong);backdrop-filter:blur(8px);
+    padding:11px 12px;box-shadow:var(--shadow);
+  }
+  .res-row.has-fr{border-color:rgba(243,216,137,.4);}
+  .res-team{font-size:13.5px;font-weight:700;color:var(--muted);line-height:1.2;}
+  .res-team.t1{text-align:right;} .res-team.t2{text-align:left;}
+  .res-team.win{color:var(--ink);}
+  .res-score{
+    font-family:'Anton',sans-serif;font-size:17px;letter-spacing:.02em;
+    color:var(--gold-1);background:rgba(0,0,0,.28);
+    padding:3px 11px;border-radius:9px;white-space:nowrap;
+  }
+  .res-grp{
+    grid-column:1/-1;text-align:center;margin-top:2px;
+    font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+  }
 
   .class-foot{
     display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
@@ -846,6 +879,9 @@
   <nav class="tabs" id="tabs" role="tablist" aria-label="Sections">
     <button class="tab" id="tab-calendrier" role="tab" aria-selected="true" aria-controls="panel-calendrier" data-tab="calendrier">
       <span class="ti" aria-hidden="true">📅</span> Calendrier
+    </button>
+    <button class="tab" id="tab-resultats" role="tab" aria-selected="false" aria-controls="panel-resultats" data-tab="resultats">
+      <span class="ti" aria-hidden="true">✅</span> Résultats
     </button>
     <button class="tab" id="tab-classement" role="tab" aria-selected="false" aria-controls="panel-classement" data-tab="classement">
       <span class="ti" aria-hidden="true">📊</span> Classement <span class="pip" aria-hidden="true"></span>
@@ -1006,6 +1042,19 @@
       </div>
     </section>
   </div><!-- /panel classement -->
+
+  <!-- PANEL : RÉSULTATS -->
+  <div class="panel" data-panel="resultats" id="panel-resultats" role="tabpanel" aria-labelledby="tab-resultats" hidden="">
+    <section class="parcours" data-screen-label="resultats">
+      <div class="sec-head"><span class="lbl">✅ Derniers résultats</span><span class="ln"></span></div>
+      <p class="class-intro">Tous les matchs terminés, du plus récent au plus ancien · scores en direct.</p>
+      <div class="standings-wrap">
+        <div id="results-root">
+          <div class="class-state"><div class="spin"></div>Chargement des résultats…</div>
+        </div>
+      </div>
+    </section>
+  </div><!-- /panel resultats -->
 
   <!-- FOOTER NOTE -->
   <footer class="foot">
@@ -1244,9 +1293,13 @@
         var letter = gk.replace(/Group\s*/i, "");
         html += '<div class="grp' + (hasFr ? " has-fr" : "") + '">';
         html += '<div class="grp-h"><span class="gtag">Groupe ' + esc(letter) + '</span></div>';
-        html += '<div class="grp-scroll"><table class="std"><thead><tr>' +
+        html += '<div class="grp-scroll"><table class="std">' +
+                '<colgroup><col class="c-rk"><col class="c-team">' +
+                '<col class="c-n"><col class="c-n"><col class="c-n"><col class="c-n">' +
+                '<col class="c-n"><col class="c-n"><col class="c-d"><col class="c-p"></colgroup>' +
+                '<thead><tr>' +
                 '<th></th><th class="team">Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th>' +
-                '<th>BP</th><th>BC</th><th>Diff</th><th>Pts</th></tr></thead><tbody>';
+                '<th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>';
         teams.forEach(function(t, i){
           var diff = t.BP - t.BC, ds = (diff > 0 ? "+" : "") + diff;
           var cls = [(i < 2 ? "qual" : ""), (t.name === "France" ? "fr" : "")].join(" ").trim();
@@ -1266,6 +1319,48 @@
       ROOT.innerHTML = '<div class="class-state std-muted">⚠️ Classement temporairement indisponible.<br>Vérifie ta connexion et réessaie plus tard.</div>';
     }
 
+    // --- Onglet Résultats : tous les matchs terminés, du plus récent au plus ancien ---
+    var RES_ROOT = document.getElementById("results-root");
+    function frDay(iso){
+      var d = new Date(iso + "T00:00:00");
+      if (isNaN(d)) return iso;
+      return d.toLocaleDateString("fr-FR", { weekday:"long", day:"numeric", month:"long" });
+    }
+    function phaseLabel(mt){
+      if (mt.group) return "Groupe " + mt.group.replace(/Group\s*/i, "");
+      return mt.round || "Phase finale";
+    }
+    function renderResults(matches){
+      if (!RES_ROOT) return;
+      var played = matches.filter(function(mt){
+        return mt.score && mt.score.ft && mt.score.ft.length === 2;
+      });
+      played.sort(function(a, b){
+        return (b.date || "").localeCompare(a.date || "") ||
+               String(b.time || "").localeCompare(String(a.time || ""));
+      });
+      if (!played.length){
+        RES_ROOT.innerHTML = '<div class="class-state std-muted">Aucun match terminé pour le moment.<br>Les résultats s\'afficheront ici dès le premier coup de sifflet final. ⚽</div>';
+        return;
+      }
+      var html = "", lastDay = null;
+      played.forEach(function(mt){
+        if (mt.date !== lastDay){
+          lastDay = mt.date;
+          html += '<div class="res-day"><span class="d">' + esc(frDay(mt.date)) + '</span><span class="ln"></span></div>';
+        }
+        var a = +mt.score.ft[0], b = +mt.score.ft[1];
+        var isFr = (mt.team1 === "France" || mt.team2 === "France");
+        var w1 = a > b ? " win" : "", w2 = b > a ? " win" : "";
+        html += '<div class="res-row' + (isFr ? " has-fr" : "") + '">' +
+          '<span class="res-team t1' + w1 + '">' + label(mt.team1) + '</span>' +
+          '<span class="res-score">' + a + ' – ' + b + '</span>' +
+          '<span class="res-team t2' + w2 + '">' + label(mt.team2) + '</span>' +
+          '<span class="res-grp">' + esc(phaseLabel(mt)) + '</span></div>';
+      });
+      RES_ROOT.innerHTML = html;
+    }
+
     // TheSportsDB : clé de test gratuite "3", saison 2026 de la Coupe du monde (idLeague 4429).
     var SCORES_URL = "https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4429&s=2026";
 
@@ -1281,7 +1376,11 @@
       var matches = (data && data.matches) || [];
       applyScores(matches, sdb);
       render(compute(matches));
-    }).catch(fail);
+      renderResults(matches);
+    }).catch(function(){
+      fail();
+      if (RES_ROOT) RES_ROOT.innerHTML = '<div class="class-state std-muted">⚠️ Résultats temporairement indisponibles.</div>';
+    });
   })();
 </script>
 
