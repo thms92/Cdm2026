@@ -1228,10 +1228,15 @@
     // ajoute ici { team1:"Mexico", team2:"South Africa", ft:[2,0] }. Prioritaire.
     var MANUAL_SCORES = [];
 
-    function applyScores(matches, sdb){
-      var index = {};                   // pairKey -> { normNom: butsMarqués }
-      var events = (sdb && sdb.events) || [];
-      events.forEach(function(ev){
+    // Cache persistant des scores : une fois un score connu, il survit aux 429 / coupures.
+    var CACHE_KEY = "cdm2026_scores_v2";
+    function loadCache(){ try{ return JSON.parse(localStorage.getItem(CACHE_KEY)) || {}; }catch(e){ return {}; } }
+    function saveCache(obj){ try{ localStorage.setItem(CACHE_KEY, JSON.stringify(obj)); }catch(e){} }
+
+    // Construit l'index pairKey -> { normNom: buts } à partir d'une liste d'events TheSportsDB.
+    function buildIndex(events){
+      var index = {};
+      (events || []).forEach(function(ev){
         if (ev.intHomeScore == null || ev.intHomeScore === "") return;
         if (ev.intAwayScore == null || ev.intAwayScore === "") return;
         var rec = {};
@@ -1239,12 +1244,18 @@
         rec[norm(ev.strAwayTeam)] = +ev.intAwayScore;
         index[pairKey(ev.strHomeTeam, ev.strAwayTeam)] = rec;
       });
-      MANUAL_SCORES.forEach(function(m){
+      return index;
+    }
+
+    // Superpose les scores de l'index (cache+API+manuel) sur les matchs openfootball.
+    function applyScores(matches, index){
+      MANUAL_SCORES.forEach(function(m){          // la saisie manuelle écrase tout
         var rec = {};
         rec[norm(m.team1)] = +m.ft[0]; rec[norm(m.team2)] = +m.ft[1];
-        index[pairKey(m.team1, m.team2)] = rec; // la saisie manuelle écrase l'API
+        index[pairKey(m.team1, m.team2)] = rec;
       });
       matches.forEach(function(mt){
+        if (mt.score && mt.score.ft) return;      // respecter un score openfootball natif
         var rec = index[pairKey(mt.team1, mt.team2)];
         if (!rec) return;
         var a = rec[norm(mt.team1)], b = rec[norm(mt.team2)];
@@ -1361,26 +1372,55 @@
       RES_ROOT.innerHTML = html;
     }
 
-    // TheSportsDB : clé de test gratuite "3", saison 2026 de la Coupe du monde (idLeague 4429).
-    var SCORES_URL = "https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4429&s=2026";
+    // TheSportsDB (clé de test gratuite "3", idLeague 4429) — feed des matchs terminés.
+    // On combine "past" (résultats récents) et "season" pour maximiser la couverture.
+    var SCORES_URLS = [
+      "https://www.thesportsdb.com/api/v1/json/3/eventspastleague.php?id=4429",
+      "https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4429&s=2026"
+    ];
+    var CACHE_TTL = 45000;   // ne ré-interroge l'API que si le cache a plus de 45 s (anti-429)
 
-    Promise.all([
-      fetch(DATA_URL, { cache:"no-store" })
-        .then(function(r){ if (!r.ok) throw new Error("http"); return r.json(); }),
-      // Les scores sont un bonus : si l'API échoue, on affiche quand même le squelette.
-      fetch(SCORES_URL, { cache:"no-store" })
-        .then(function(r){ return r.ok ? r.json() : null; })
-        .catch(function(){ return null; })
-    ]).then(function(res){
-      var data = res[0], sdb = res[1];
-      var matches = (data && data.matches) || [];
-      applyScores(matches, sdb);
+    function draw(matches, index){
+      applyScores(matches, index);
       render(compute(matches));
       renderResults(matches);
-    }).catch(function(){
-      fail();
-      if (RES_ROOT) RES_ROOT.innerHTML = '<div class="class-state std-muted">⚠️ Résultats temporairement indisponibles.</div>';
-    });
+    }
+
+    fetch(DATA_URL, { cache:"no-store" })
+      .then(function(r){ if (!r.ok) throw new Error("http"); return r.json(); })
+      .then(function(data){
+        var matches = (data && data.matches) || [];
+        var store = loadCache();
+        var index = store.idx || {};
+
+        // 1) Affichage immédiat depuis le cache (survit aux 429 / coupures réseau).
+        draw(matches, index);
+
+        // 2) Si le cache est encore frais, on s'arrête là (évite de spammer l'API).
+        if (store.ts && (Date.now() - store.ts) < CACHE_TTL) return;
+
+        // 3) Sinon on rafraîchit en arrière-plan ; un échec ne casse rien.
+        Promise.all(SCORES_URLS.map(function(u){
+          return fetch(u, { cache:"no-store" })
+            .then(function(r){ return r.ok ? r.json() : null; })
+            .catch(function(){ return null; });
+        })).then(function(lists){
+          var fresh = {};
+          lists.forEach(function(d){
+            if (d && d.events){ var ix = buildIndex(d.events); for (var k in ix) fresh[k] = ix[k]; }
+          });
+          if (!Object.keys(fresh).length) return;     // rien de neuf (ex. 429) -> garder le cache
+          var merged = {};
+          for (var k in index) merged[k] = index[k];   // ancien cache
+          for (var k2 in fresh) merged[k2] = fresh[k2]; // l'API récente écrase
+          saveCache({ idx: merged, ts: Date.now() });
+          draw(matches, merged);                        // re-render avec les scores frais
+        });
+      })
+      .catch(function(){
+        fail();
+        if (RES_ROOT) RES_ROOT.innerHTML = '<div class="class-state std-muted">⚠️ Résultats temporairement indisponibles.</div>';
+      });
   })();
 </script>
 
