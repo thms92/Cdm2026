@@ -658,7 +658,7 @@
   table.std tbody tr.qual td.rk{color:var(--green);}
   table.std tbody tr.qual3{background:linear-gradient(90deg,rgba(240,181,74,.13),transparent 72%);}
   table.std tbody tr.qual3 td.rk{color:var(--amber);}
-  table.std tbody tr.fr{background:linear-gradient(90deg,rgba(243,216,137,.16),rgba(243,216,137,.03) 75%);}
+  table.std tbody tr.fr:not(.qual):not(.qual3){background:linear-gradient(90deg,rgba(243,216,137,.16),rgba(243,216,137,.03) 75%);}
   table.std tbody tr.fr td.team{color:var(--gold-1);}
   .std-muted{color:var(--faint);}
 
@@ -735,7 +735,7 @@
   table.th3 tbody tr.q3 td.rk{color:var(--amber);}
   table.th3 tbody tr.out{opacity:.5;}
   table.th3 tbody tr.cut td{border-top:2px dashed rgba(240,181,74,.45);}
-  table.th3 tbody tr.fr{background:linear-gradient(90deg,rgba(243,216,137,.18),rgba(243,216,137,.03) 78%);}
+  table.th3 tbody tr.fr:not(.q3){background:linear-gradient(90deg,rgba(243,216,137,.18),rgba(243,216,137,.03) 78%);}
   table.th3 tbody tr.fr td.team{color:var(--gold-1);}
   .thirds-note{
     padding:10px 14px 12px;font-size:11px;color:var(--faint);line-height:1.5;
