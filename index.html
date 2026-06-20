@@ -256,43 +256,6 @@
   }
   .subtitle b{color:var(--ink);font-weight:700;}
 
-  /* ---------- COUNTDOWN ---------- */
-  .countdown{
-    margin:30px auto 6px;
-  }
-  .cd-label{
-    font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--faint);text-align:center;margin-bottom:14px;
-  }
-  .cd-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-  }
-  .cd-cell{
-    background:var(--glass);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:14px 4px 10px;
-    text-align:center;
-    backdrop-filter:blur(8px);
-    position:relative;overflow:hidden;
-  }
-  .cd-cell::after{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(243,216,137,.5),transparent);}
-  .cd-num{
-    font-family:'Anton',sans-serif;
-    font-size:34px;line-height:1;
-    color:var(--ink);
-    font-variant-numeric:tabular-nums;
-  }
-  .cd-unit{
-    display:block;margin-top:6px;
-    font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--faint);
-  }
-  .cd-foot{
-    text-align:center;margin-top:14px;font-size:13px;color:var(--muted);
-  }
-  .cd-foot b{color:var(--gold-1);font-weight:700;}
-
   /* ---------- INFO BOX ---------- */
   .info{
     margin-top:32px;
@@ -693,6 +656,8 @@
   table.std tbody tr:last-child{border-bottom:none;}
   table.std tbody tr.qual{background:linear-gradient(90deg,rgba(52,199,133,.10),transparent 70%);}
   table.std tbody tr.qual td.rk{color:var(--green);}
+  table.std tbody tr.qual3{background:linear-gradient(90deg,rgba(240,181,74,.13),transparent 72%);}
+  table.std tbody tr.qual3 td.rk{color:var(--amber);}
   table.std tbody tr.fr{background:linear-gradient(90deg,rgba(243,216,137,.16),rgba(243,216,137,.03) 75%);}
   table.std tbody tr.fr td.team{color:var(--gold-1);}
   .std-muted{color:var(--faint);}
@@ -734,7 +699,48 @@
   .class-foot .lg{display:inline-flex;align-items:center;gap:6px;}
   .class-foot .sw{width:18px;height:12px;border-radius:3px;display:inline-block;}
   .class-foot .sw.q{background:linear-gradient(90deg,rgba(52,199,133,.5),rgba(52,199,133,.12));}
+  .class-foot .sw.t{background:linear-gradient(90deg,rgba(240,181,74,.65),rgba(240,181,74,.12));}
   .class-foot .sw.f{background:linear-gradient(90deg,rgba(243,216,137,.6),rgba(243,216,137,.12));}
+
+  /* ---------- MEILLEURS 3èmes ---------- */
+  #thirds-root:empty{display:none;}
+  .thirds{
+    margin-top:18px;
+    border:1px solid rgba(240,181,74,.3);
+    border-radius:16px;
+    background:linear-gradient(180deg,rgba(240,181,74,.07),var(--glass-strong));
+    overflow:hidden;box-shadow:var(--shadow);
+  }
+  .thirds-h{
+    display:flex;align-items:center;gap:9px;
+    padding:12px 14px;border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(240,181,74,.13),transparent);
+  }
+  .thirds-h .tt{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.04em;color:var(--amber);}
+  .thirds-h .sub{font-size:10.5px;font-weight:700;letter-spacing:.02em;color:var(--faint);margin-left:auto;}
+  table.th3{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:fixed;}
+  table.th3 th,table.th3 td{padding:8px 3px;font-size:12px;text-align:center;white-space:nowrap;}
+  table.th3 thead th{
+    font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--faint);border-bottom:1px solid var(--line);
+  }
+  table.th3 td.team{text-align:left;white-space:normal;padding-left:10px;font-weight:700;color:var(--ink);font-size:12.5px;line-height:1.25;}
+  table.th3 th.team{text-align:left;padding-left:10px;}
+  table.th3 td.rk{color:var(--faint);font-weight:800;}
+  table.th3 td.gr{color:var(--muted);font-weight:700;}
+  table.th3 td.pts{font-weight:800;color:var(--gold-1);font-size:13px;}
+  table.th3 tbody tr{border-bottom:1px solid rgba(255,255,255,.05);}
+  table.th3 tbody tr:last-child{border-bottom:none;}
+  table.th3 tbody tr.q3{background:linear-gradient(90deg,rgba(240,181,74,.13),transparent 78%);}
+  table.th3 tbody tr.q3 td.rk{color:var(--amber);}
+  table.th3 tbody tr.out{opacity:.5;}
+  table.th3 tbody tr.cut td{border-top:2px dashed rgba(240,181,74,.45);}
+  table.th3 tbody tr.fr{background:linear-gradient(90deg,rgba(243,216,137,.18),rgba(243,216,137,.03) 78%);}
+  table.th3 tbody tr.fr td.team{color:var(--gold-1);}
+  .thirds-note{
+    padding:10px 14px 12px;font-size:11px;color:var(--faint);line-height:1.5;
+    border-top:1px solid rgba(255,255,255,.05);
+  }
 
   .class-state{
     text-align:center;padding:34px 16px;color:var(--muted);font-size:14px;
@@ -758,11 +764,21 @@
     border-bottom:1px solid var(--line);
   }
   .tab{
-    flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
+    flex:1; min-width:0; display:flex; align-items:center; justify-content:center; gap:8px;
     padding:13px 10px; border-radius:13px;
     font-family:'Manrope',sans-serif; font-size:14.5px; font-weight:800; letter-spacing:.01em;
+    white-space:nowrap;
     color:var(--muted); background:var(--glass); border:1px solid var(--line);
     cursor:pointer; transition:transform .15s ease, background .25s ease, color .2s ease, box-shadow .25s ease;
+  }
+  /* Petits écrans : on resserre pour que les 3 onglets tiennent sans déborder */
+  @media (max-width:440px){
+    .tabs{gap:6px; padding:10px 12px;}
+    .tab{padding:11px 4px; font-size:12.5px; gap:5px; border-radius:11px;}
+    .tab .ti{font-size:14px;}
+  }
+  @media (max-width:360px){
+    .tab{font-size:11.5px; gap:4px;}
   }
   .tab .ti{font-size:16px;line-height:1;}
   .tab:active{transform:scale(.97);}
@@ -861,18 +877,6 @@
     <div class="eyebrow"><span class="dot"></span>11 juin → 19 juillet 2026</div>
     <h1 class="title">Coupe du<br>Monde<span class="yr">2026</span></h1>
     <p class="subtitle">Tous les matchs dans ton calendrier · <b>Heure de Paris</b></p>
-
-    <!-- COUNTDOWN -->
-    <section class="countdown" aria-label="Compte à rebours">
-      <div class="cd-label">Coup d'envoi dans</div>
-      <div class="cd-grid">
-        <div class="cd-cell"><div class="cd-num" id="cd-d">00</div><span class="cd-unit">Jours</span></div>
-        <div class="cd-cell"><div class="cd-num" id="cd-h">00</div><span class="cd-unit">Heures</span></div>
-        <div class="cd-cell"><div class="cd-num" id="cd-m">00</div><span class="cd-unit">Min</span></div>
-        <div class="cd-cell"><div class="cd-num" id="cd-s">00</div><span class="cd-unit">Sec</span></div>
-      </div>
-      <p class="cd-foot">Match d'ouverture · <b>jeudi 11 juin 2026</b></p>
-    </section>
   </header>
 
   <!-- ONGLETS -->
@@ -1034,8 +1038,10 @@
         <div id="standings-root">
           <div class="class-state"><div class="spin"></div>Chargement du classement…</div>
         </div>
+        <div id="thirds-root"></div>
         <div class="class-foot">
           <span class="lg"><span class="sw q"></span> 2 premiers · qualifiés directs</span>
+          <span class="lg"><span class="sw t"></span> meilleurs 3èmes (8 qualifiés)</span>
           <span class="lg"><span class="sw f"></span> 🇫🇷 France</span>
         </div>
         <p class="class-intro" style="margin-top:14px;font-size:.82rem;opacity:.85;">ℹ️ Format à 48 équipes : sur les 12 groupes, <b>les 2 premiers + les 8 meilleurs troisièmes</b> rejoignent les 32 qualifiés pour les seizièmes de finale. Classement provisoire et adversaires potentiels mis à jour en temps réel.</p>
@@ -1111,29 +1117,6 @@
     }
   })();
 
-  // ---- Compte à rebours jusqu'au 11 juin 2026, coup d'envoi ----
-  (function(){
-    // 11 juin 2026, 21:00 heure de Paris (UTC+2 en été) -> 19:00 UTC
-    var KICKOFF = new Date(Date.UTC(2026, 5, 11, 19, 0, 0));
-    var d=document.getElementById("cd-d"),h=document.getElementById("cd-h"),
-        m=document.getElementById("cd-m"),s=document.getElementById("cd-s");
-    function p(n){ return (n<10?"0":"")+n; }
-    function tick(){
-      var diff = KICKOFF.getTime() - Date.now();
-      if (diff <= 0){
-        d.textContent="00";h.textContent="00";m.textContent="00";s.textContent="00";
-        document.querySelector(".cd-label").textContent = "C'est parti ! ⚽";
-        return;
-      }
-      var sec = Math.floor(diff/1000);
-      d.textContent = p(Math.floor(sec/86400));
-      h.textContent = p(Math.floor(sec%86400/3600));
-      m.textContent = p(Math.floor(sec%3600/60));
-      s.textContent = p(sec%60);
-    }
-    tick();
-    setInterval(tick, 1000);
-  })();
 </script>
 
 <script>
@@ -1292,11 +1275,35 @@
       });
     }
 
+    // --- Classement des 3èmes (les 8 meilleurs sont qualifiés) ---
+    // Critères FIFA : points, différence de buts, buts marqués, puis ordre de groupe.
+    function computeThirds(groups){
+      var thirds = [];
+      Object.keys(groups).forEach(function(gk){
+        var teams = sortTeams(Object.keys(groups[gk]).map(function(k){ return groups[gk][k]; }));
+        if (teams.length >= 3){
+          thirds.push({ team: teams[2], group: gk.replace(/Group\s*/i, "") });
+        }
+      });
+      thirds.sort(function(p, q){
+        var a = p.team, b = q.team;
+        var da = a.BP - a.BC, db = b.BP - b.BC;
+        return (b.Pts - a.Pts) || (db - da) || (b.BP - a.BP) || p.group.localeCompare(q.group);
+      });
+      return thirds;
+    }
+
     function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); }
 
     function render(groups){
       var keys = Object.keys(groups).sort();
       if (!keys.length){ ROOT.innerHTML = '<div class="class-state std-muted">Aucun groupe disponible pour le moment.</div>'; return; }
+
+      // 3èmes : on calcule d'abord pour savoir lesquels (top 8) sont qualifiés.
+      var thirds = computeThirds(groups);
+      var qualThirdGroups = {};
+      thirds.slice(0, 8).forEach(function(o){ qualThirdGroups[o.group] = true; });
+
       var html = "";
       keys.forEach(function(gk){
         var teams = sortTeams(Object.keys(groups[gk]).map(function(k){ return groups[gk][k]; }));
@@ -1313,7 +1320,8 @@
                 '<th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>';
         teams.forEach(function(t, i){
           var diff = t.BP - t.BC, ds = (diff > 0 ? "+" : "") + diff;
-          var cls = [(i < 2 ? "qual" : ""), (t.name === "France" ? "fr" : "")].join(" ").trim();
+          var isQualThird = (i === 2 && qualThirdGroups[letter]);
+          var cls = [(i < 2 ? "qual" : ""), (isQualThird ? "qual3" : ""), (t.name === "France" ? "fr" : "")].join(" ").replace(/\s+/g, " ").trim();
           html += '<tr' + (cls ? ' class="' + cls + '"' : "") + '>' +
             '<td class="rk">' + (i + 1) + '</td>' +
             '<td class="team">' + label(t.name) + '</td>' +
@@ -1324,6 +1332,39 @@
         html += '</tbody></table></div></div>';
       });
       ROOT.innerHTML = html;
+      renderThirds(thirds);
+    }
+
+    // --- Tableau dédié : classement des 3èmes (8 qualifiés / 12) ---
+    var THIRDS_ROOT = document.getElementById("thirds-root");
+    function renderThirds(thirds){
+      if (!THIRDS_ROOT) return;
+      if (!thirds || !thirds.length){ THIRDS_ROOT.innerHTML = ""; return; }
+      var anyPlayed = thirds.some(function(o){ return o.team.J > 0; });
+      var html = '<div class="thirds">' +
+        '<div class="thirds-h"><span class="tt">🥉 Meilleurs 3èmes</span>' +
+        '<span class="sub">8 qualifiés sur 12</span></div>' +
+        '<table class="th3"><colgroup>' +
+        '<col style="width:30px"><col style="width:32px"><col>' +
+        '<col style="width:26px"><col style="width:36px"><col style="width:34px"></colgroup>' +
+        '<thead><tr><th></th><th>Gr.</th><th class="team">Équipe</th>' +
+        '<th>J</th><th>±</th><th>Pts</th></tr></thead><tbody>';
+      thirds.forEach(function(o, i){
+        var t = o.team, diff = t.BP - t.BC, ds = (diff > 0 ? "+" : "") + diff;
+        var cls = [(i < 8 ? "q3" : "out"), (i === 8 ? "cut" : ""), (t.name === "France" ? "fr" : "")]
+                  .join(" ").replace(/\s+/g, " ").trim();
+        html += '<tr' + (cls ? ' class="' + cls + '"' : "") + '>' +
+          '<td class="rk">' + (i + 1) + '</td>' +
+          '<td class="gr">' + esc(o.group) + '</td>' +
+          '<td class="team">' + label(t.name) + '</td>' +
+          '<td>' + t.J + '</td><td>' + ds + '</td>' +
+          '<td class="pts">' + t.Pts + '</td></tr>';
+      });
+      html += '</tbody></table>' +
+        '<p class="thirds-note">Départage : points, puis différence de buts, puis buts marqués.' +
+        (anyPlayed ? '' : ' Classement provisoire (aucun match de 3ème joué) — ordre par groupe.') +
+        '</p></div>';
+      THIRDS_ROOT.innerHTML = html;
     }
 
     function fail(){
