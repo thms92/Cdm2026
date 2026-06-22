@@ -1044,7 +1044,7 @@
           <span class="lg"><span class="sw t"></span> meilleurs 3èmes (8 qualifiés)</span>
           <span class="lg"><span class="sw f"></span> 🇫🇷 France</span>
         </div>
-        <p class="class-intro" style="margin-top:14px;font-size:.82rem;opacity:.85;">ℹ️ Format à 48 équipes : sur les 12 groupes, <b>les 2 premiers + les 8 meilleurs troisièmes</b> rejoignent les 32 qualifiés pour les seizièmes de finale. Classement provisoire et adversaires potentiels mis à jour en temps réel.</p>
+        <p class="class-intro" style="margin-top:14px;font-size:.82rem;opacity:.85;">ℹ️ Format à 48 équipes : sur les 12 groupes, <b>les 2 premiers + les 8 meilleurs troisièmes</b> rejoignent les 32 qualifiés pour les seizièmes de finale. En cas d'égalité de points, départage au <b>résultat particulier</b> (face-à-face) puis à la différence de buts du groupe. Classement provisoire mis à jour en temps réel.</p>
       </div>
     </section>
   </div><!-- /panel classement -->
@@ -1251,28 +1251,100 @@
       var groups = {};
       matches.forEach(function(mt){
         if (!mt.group) return;                 // ignore phases finales
-        var g = groups[mt.group] || (groups[mt.group] = {});
+        var g = groups[mt.group] || (groups[mt.group] = { teams:{}, played:[] });
+        var T = g.teams;
         [mt.team1, mt.team2].forEach(function(t){
-          if (!g[t]) g[t] = { name:t, ord:Object.keys(g).length, J:0, G:0, N:0, P:0, BP:0, BC:0, Pts:0 };
+          if (!T[t]) T[t] = { name:t, ord:Object.keys(T).length, J:0, G:0, N:0, P:0, BP:0, BC:0, Pts:0 };
         });
         if (mt.score && mt.score.ft && mt.score.ft.length === 2){
           var a = +mt.score.ft[0], b = +mt.score.ft[1];
-          var t1 = g[mt.team1], t2 = g[mt.team2];
+          var t1 = T[mt.team1], t2 = T[mt.team2];
           t1.J++; t2.J++;
           t1.BP += a; t1.BC += b; t2.BP += b; t2.BC += a;
           if (a > b){ t1.G++; t2.P++; t1.Pts += 3; }
           else if (a < b){ t2.G++; t1.P++; t2.Pts += 3; }
           else { t1.N++; t2.N++; t1.Pts++; t2.Pts++; }
+          // mémorise le résultat pour le départage au face-à-face
+          g.played.push({ t1:mt.team1, t2:mt.team2, a:a, b:b });
         }
       });
       return groups;
     }
 
-    function sortTeams(arr){
-      return arr.sort(function(x, y){
-        var dx = x.BP - x.BC, dy = y.BP - y.BC;
-        return (y.Pts - x.Pts) || (dy - dx) || (y.BP - x.BP) || (x.ord - y.ord);
+    // Critères de départage FIFA 2026 (égalité de POINTS) :
+    //  1. points dans les matchs entre équipes concernées (résultat particulier)
+    //  2. différence de buts particulière
+    //  3. buts marqués particuliers
+    //  4. différence de buts dans le groupe
+    //  5. buts marqués dans le groupe
+    //  6. fair-play  7. classement FIFA  (données indispo → ordre de tirage)
+    function sortTeams(arr, played){
+      played = played || [];
+      // 1) Regrouper par nombre de points, 2) départager chaque paquet à égalité.
+      var byPts = arr.slice().sort(function(x, y){ return y.Pts - x.Pts; });
+      var out = [];
+      var i = 0;
+      while (i < byPts.length){
+        var j = i;
+        while (j < byPts.length && byPts[j].Pts === byPts[i].Pts) j++;
+        var tied = byPts.slice(i, j);
+        if (tied.length === 1) out.push(tied[0]);
+        else breakTie(tied, played).forEach(function(t){ out.push(t); });
+        i = j;
+      }
+      return out;
+    }
+
+    // Mini-championnat entre les équipes concernées (uniquement leurs confrontations).
+    function h2hStats(teams, played){
+      var inSet = {}, st = {};
+      teams.forEach(function(t){ inSet[t.name] = true; st[t.name] = { pts:0, bp:0, bc:0 }; });
+      played.forEach(function(m){
+        if (!inSet[m.t1] || !inSet[m.t2]) return;
+        var A = st[m.t1], B = st[m.t2];
+        A.bp += m.a; A.bc += m.b; B.bp += m.b; B.bc += m.a;
+        if (m.a > m.b) A.pts += 3;
+        else if (m.a < m.b) B.pts += 3;
+        else { A.pts++; B.pts++; }
       });
+      return st;
+    }
+
+    function sameH2H(a, b){
+      return a.pts === b.pts && (a.bp - a.bc) === (b.bp - b.bc) && a.bp === b.bp;
+    }
+
+    // Départage un paquet d'équipes à égalité de points.
+    function breakTie(teams, played){
+      var h = h2hStats(teams, played);
+      var sorted = teams.slice().sort(function(x, y){
+        var hx = h[x.name], hy = h[y.name];
+        var hdx = hx.bp - hx.bc, hdy = hy.bp - hy.bc;   // 2) diff particulière
+        var gdx = x.BP - x.BC, gdy = y.BP - y.BC;       // 4) diff de groupe
+        return (hy.pts - hx.pts)        // 1) points particuliers
+            || (hdy - hdx)              // 2)
+            || (hy.bp - hx.bp)          // 3) buts particuliers
+            || (gdy - gdx)              // 4)
+            || (y.BP - x.BP)            // 5) buts de groupe
+            || (x.ord - y.ord);         // 6/7) défaut : ordre de tirage
+      });
+
+      // Ré-application FIFA : si un vrai sous-ensemble reste à égalité sur les
+      // critères particuliers, on rejoue le mini-championnat entre ces seules équipes.
+      var res = [];
+      var i = 0;
+      while (i < sorted.length){
+        var k = i + 1;
+        while (k < sorted.length && sameH2H(h[sorted[i].name], h[sorted[k].name])) k++;
+        var sub = sorted.slice(i, k);
+        if (sub.length > 1 && sub.length < teams.length){
+          breakTie(sub, played).forEach(function(t){ res.push(t); });
+        } else {
+          sub.forEach(function(t){ res.push(t); });
+        }
+        i = k;
+      }
+      return res;
     }
 
     // --- Classement des 3èmes (les 8 meilleurs sont qualifiés) ---
@@ -1280,11 +1352,14 @@
     function computeThirds(groups){
       var thirds = [];
       Object.keys(groups).forEach(function(gk){
-        var teams = sortTeams(Object.keys(groups[gk]).map(function(k){ return groups[gk][k]; }));
+        var grp = groups[gk];
+        var teams = sortTeams(Object.keys(grp.teams).map(function(k){ return grp.teams[k]; }), grp.played);
         if (teams.length >= 3){
           thirds.push({ team: teams[2], group: gk.replace(/Group\s*/i, "") });
         }
       });
+      // Entre 3èmes de groupes différents : pas de face-à-face possible.
+      // Critères FIFA : points, diff. de buts, buts marqués, (fair-play / FIFA).
       thirds.sort(function(p, q){
         var a = p.team, b = q.team;
         var da = a.BP - a.BC, db = b.BP - b.BC;
@@ -1306,7 +1381,8 @@
 
       var html = "";
       keys.forEach(function(gk){
-        var teams = sortTeams(Object.keys(groups[gk]).map(function(k){ return groups[gk][k]; }));
+        var grp = groups[gk];
+        var teams = sortTeams(Object.keys(grp.teams).map(function(k){ return grp.teams[k]; }), grp.played);
         var hasFr = teams.some(function(t){ return t.name === "France"; });
         var letter = gk.replace(/Group\s*/i, "");
         html += '<div class="grp' + (hasFr ? " has-fr" : "") + '">';
