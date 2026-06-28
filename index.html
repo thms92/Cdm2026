@@ -856,7 +856,11 @@
   .bn-where{font-size:12px;color:var(--muted);}
   @media(min-width:900px){.bleus-next{max-width:560px;}}
   .tl-item.next .tl-card{border-color:rgba(58,96,210,.5);box-shadow:0 0 0 1px rgba(58,96,210,.25);}
-  .tl-item.done{opacity:.55;}
+  .tl-item.won .tl-card{border-color:rgba(52,199,133,.45);}
+  .tl-item.lost .tl-card{border-color:rgba(255,107,107,.45);}
+  .tl-res{display:inline-block;margin-top:9px;font-size:11px;font-weight:800;letter-spacing:.03em;padding:3px 10px;border-radius:8px;}
+  .tl-res.win{color:var(--green);background:rgba(52,199,133,.12);border:1px solid rgba(52,199,133,.3);}
+  .tl-res.lose{color:#ff8a8a;background:rgba(255,90,90,.1);border:1px solid rgba(255,90,90,.3);}
 </style>
 </head>
 <body>
@@ -1619,8 +1623,33 @@
         nums.map(function(n){ return bkCard(n, BK_CTX); }).join("") + '</div>';
     }
 
+    // Résultats des matchs à élimination directe (openfootball, num 73-104).
+    // Alimente ctx.result[num] = {win, lose, sw, sl, mode} → résout les W##/L##.
+    // Gère prolongation (et) et tirs au but (p) ; un nul non départagé reste indéterminé.
+    function computeKO(matches){
+      var res = {};
+      (matches || []).forEach(function(mt){
+        var n = +mt.num;
+        if (!n || n < 73 || !mt.score) return;
+        var t1 = mt.team1, t2 = mt.team2;
+        if (!t1 || !t2 || /^[WL]\d+$/.test(t1) || /^[WL]\d+$/.test(t2)) return;  // équipes inconnues
+        var ft = mt.score.ft, et = mt.score.et,
+            p  = mt.score.p || mt.score.pen || mt.score.pens;
+        var fin = (et && et.length === 2) ? et : ft;
+        if (!fin || fin.length < 2 || fin[0] == null || fin[1] == null) return;
+        var a = +fin[0], b = +fin[1], win, lose, sw, sl, mode = (et && et.length === 2) ? "et" : "";
+        if (a !== b){
+          win = a > b ? t1 : t2; lose = a > b ? t2 : t1; sw = Math.max(a, b); sl = Math.min(a, b);
+        } else if (p && p.length === 2 && +p[0] !== +p[1]){
+          win = +p[0] > +p[1] ? t1 : t2; lose = +p[0] > +p[1] ? t2 : t1; sw = a; sl = b; mode = "pen";
+        } else return;                          // nul sans départage connu
+        res[n] = { win:win, lose:lose, sw:sw, sl:sl, mode:mode };
+      });
+      return res;
+    }
+
     var BK_CTX = null;
-    function renderBracket(groups){
+    function renderBracket(groups, ko){
       if (!BK_ROOT) return;
       // Positions 1er/2e par groupe (classement en direct, départage compris).
       var pos = {};
@@ -1635,7 +1664,7 @@
       var thirdName = {};                          // lettre groupe → nom du 3e
       top8.forEach(function(o){ thirdName[o.group] = o.team.name; });
       var thirdByMatch = assignThirds(top8.map(function(o){ return o.group; }));
-      BK_CTX = { pos:pos, thirdName:thirdName, thirdByMatch:thirdByMatch, result:{} };
+      BK_CTX = { pos:pos, thirdName:thirdName, thirdByMatch:thirdByMatch, result: ko || {} };
 
       var html = '<div class="bracket-scroll">' +
         '<div class="bracket-head">' +
@@ -1654,10 +1683,12 @@
         '</div>' +
         '</div>';
 
-      // Petite finale (3e place)
+      // Petite finale (3e place) — adversaires = perdants des demies, dès qu'ils sont connus.
       var tp = BK[103];
+      var t3a = slotInfo(tp.a, 103, BK_CTX), t3b = slotInfo(tp.b, 103, BK_CTX);
+      var row3 = (t3a.name ? label(t3a.name) : esc(t3a.ph)) + ' ✕ ' + (t3b.name ? label(t3b.name) : esc(t3b.ph));
       html += '<div class="bk-third"><div class="lbl">🥉 Match pour la 3ᵉ place · ' + frShort(tp.d) + ' · ' + tp.t.replace(":","h") + '</div>' +
-        '<div class="row2">Perdant ½ ✕ Perdant ½</div></div>';
+        '<div class="row2">' + row3 + '</div></div>';
 
       BK_ROOT.innerHTML = html;
     }
@@ -1700,9 +1731,21 @@
         m = BK[num];
         var oppCode = (m.a === fc) ? m.b : m.a;
         var opp = slotInfo(oppCode, num, ctx);
+        var r = ctx.result[num];
+        var oppName = opp.name || null, oppPh = opp.name ? null : (opp.ph || "À déterminer");
+        var outcome = null, scoreFr = null;
+        if (r && (r.win === "France" || r.lose === "France")){
+          outcome = (r.win === "France") ? "win" : "lose";
+          oppName = (r.win === "France") ? r.lose : r.win;   // adversaire réel du match joué
+          oppPh = null;
+          var fg = (outcome === "win") ? r.sw : r.sl, og = (outcome === "win") ? r.sl : r.sw;
+          var suf = r.mode === "pen" ? " (t.a.b.)" : r.mode === "et" ? " (a.p.)" : "";
+          scoreFr = fg + "–" + og + suf;
+        }
         path.push({ num:num, r:m.r, d:m.d, t:m.t, v:m.v,
-                    oppName: opp.name || null, oppPh: opp.name ? null : (opp.ph || "À déterminer"),
-                    utc: kickUTC(m.d, m.t) });
+                    oppName: oppName, oppPh: oppPh, utc: kickUTC(m.d, m.t),
+                    outcome: outcome, scoreFr: scoreFr, played: !!outcome });
+        if (outcome === "lose") break;    // France éliminée → parcours terminé
         fc = "W" + num;
         num = FWD_OF[num] || null;
       }
@@ -1718,15 +1761,17 @@
         if (tlEl) tlEl.innerHTML = '<div class="tl-axis"></div><p class="parcours-note">Les Bleus ne figurent pas dans le tableau final.</p>';
         return;
       }
-      var now = Date.now();
-      var nextIdx = path.length;        // par défaut : tout est passé
-      for (var i = 0; i < path.length; i++){
-        if (path[i].utc + 7200000 > now){ nextIdx = i; break; }   // 1er match pas terminé
-      }
+      var last = path[path.length - 1];
+      var eliminated = last.outcome === "lose";
+      var champion  = (last.num === 104 && last.outcome === "win");
+      // prochain match = 1er non encore joué
+      var nextIdx = path.length;
+      for (var i = 0; i < path.length; i++){ if (!path[i].played){ nextIdx = i; break; } }
 
       if (heroEl){
-        if (nextIdx >= path.length){ heroEl.style.display = "none"; }   // parcours terminé
-        else {
+        if (eliminated || champion || nextIdx >= path.length){
+          heroEl.style.display = "none";       // plus de match à venir
+        } else {
           var nx = path[nextIdx];
           var oppHtml = nx.oppName ? label(nx.oppName) : esc(nx.oppPh);
           document.getElementById("bn-round").textContent = ROUND_FR[nx.r];
@@ -1739,16 +1784,20 @@
 
       if (tlEl){
         var items = path.map(function(p, idx){
-          var done = (p.utc + 7200000 <= now);
           var isNext = (idx === nextIdx);
+          var cls = p.outcome === "win" ? " won" : p.outcome === "lose" ? " lost" : (isNext ? " next" : "");
           var oppHtml = p.oppName ? label(p.oppName) : esc(p.oppPh);
-          return '<div class="tl-item' + (isNext ? " next" : "") + (done ? " done" : "") + '">' +
+          var badge = "";
+          if (p.outcome === "win")  badge = '<span class="tl-res win">' + (p.num === 104 ? "🏆 Champion du monde" : "✅ Qualifié") + ' · ' + esc(p.scoreFr) + '</span>';
+          else if (p.outcome === "lose") badge = '<span class="tl-res lose">❌ Éliminé · ' + esc(p.scoreFr) + '</span>';
+          return '<div class="tl-item' + cls + '">' +
             '<div class="tl-dot">' + (idx + 1) + '</div>' +
             '<div class="tl-card">' +
               '<div class="tl-step">' + ROUND_FR[p.r] + (isNext ? ' · <b>prochain</b>' : '') + '</div>' +
               '<div class="tl-match">' + label("France") + ' <span class="vs">–</span> ' + oppHtml + '</div>' +
               '<div class="tl-meta">' + frLong(p.d, p.t) + '</div>' +
               '<div class="tl-where">📍 ' + esc(p.v) + '</div>' +
+              badge +
             '</div></div>';
         }).join("");
         tlEl.innerHTML = '<div class="tl-axis"></div>' + items;
@@ -1759,7 +1808,7 @@
       applyScores(matches, index);
       var groups = compute(matches);
       render(groups);
-      renderBracket(groups);
+      renderBracket(groups, computeKO(matches));
       renderBleus(BK_CTX);
       renderResults(matches);
     }
