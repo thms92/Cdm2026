@@ -521,7 +521,7 @@
   @media (min-width:900px){
     .parcours{position:relative;left:50%;transform:translateX(-50%);width:min(940px,94vw);}
     .parcours-3d{display:block;}
-    .timeline{display:none;}
+    .timeline{margin-top:26px;max-width:560px;margin-left:auto;margin-right:auto;}
   }
 
   .parcours-3d{
@@ -927,6 +927,30 @@
     letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
   }
   @media(min-width:900px){.nm-inner{max-width:940px;}}
+
+  /* ---- Prochain match des Bleus (accueil) ---- */
+  .bleus-next{
+    max-width:480px;margin:18px auto 0;padding:16px 18px;
+    border:1px solid rgba(58,96,210,.4);border-radius:18px;
+    background:linear-gradient(180deg,rgba(58,96,210,.16),rgba(58,96,210,.05));
+    box-shadow:0 10px 30px rgba(0,0,0,.25);text-align:center;
+  }
+  .bn-tag{
+    font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+    color:#9fb4ff;margin-bottom:10px;
+  }
+  .bn-round{
+    display:inline-block;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--gold-1);background:rgba(243,216,137,.1);border:1px solid rgba(243,216,137,.3);
+    border-radius:999px;padding:3px 11px;margin-bottom:9px;
+  }
+  .bn-teams{font-size:19px;font-weight:800;letter-spacing:-.01em;color:var(--ink);margin-bottom:7px;}
+  .bn-vs{color:var(--faint);font-weight:600;margin:0 6px;}
+  .bn-meta{font-size:12.5px;color:var(--ink);font-weight:600;margin-bottom:3px;}
+  .bn-where{font-size:12px;color:var(--muted);}
+  @media(min-width:900px){.bleus-next{max-width:560px;}}
+  .tl-item.next .tl-card{border-color:rgba(58,96,210,.5);box-shadow:0 0 0 1px rgba(58,96,210,.25);}
+  .tl-item.done{opacity:.55;}
 </style>
 </head>
 <body>
@@ -955,6 +979,15 @@
     <h1 class="title">Coupe du<br>Monde<span class="yr">2026</span></h1>
     <p class="subtitle">Tous les matchs dans ton calendrier · <b>Heure de Paris</b></p>
   </header>
+
+  <!-- PROCHAIN MATCH DES BLEUS -->
+  <section class="bleus-next" id="bleus-next" style="display:none" aria-label="Prochain match des Bleus">
+    <div class="bn-tag">🇫🇷 Prochain match des Bleus</div>
+    <div class="bn-round" id="bn-round"></div>
+    <div class="bn-teams" id="bn-teams">–</div>
+    <div class="bn-meta" id="bn-meta"></div>
+    <div class="bn-where" id="bn-where"></div>
+  </section>
 
   <!-- ONGLETS -->
   <nav class="tabs" id="tabs" role="tablist" aria-label="Sections">
@@ -1031,7 +1064,7 @@
 
     <!-- Version 3D (desktop ≥ 900px) -->
     <div class="parcours-3d" id="parcours-3d" aria-hidden="true">
-      <div class="p3d-cap">✈️ Survol du parcours · phase de groupes</div>
+      <div class="p3d-cap">✈️ Survol de la phase de groupes (terminée ✅)</div>
       <div class="p3d-compass">N<span class="ar">↑</span></div>
       <div class="p3d-country" id="p3d-country">États-Unis</div>
       <div class="p3d-country sub" id="p3d-canada">Canada</div>
@@ -1046,46 +1079,14 @@
       </div>
     </div>
 
-    <!-- Version légère (mobile < 900px) -->
-    <div class="timeline">
+    <!-- Parcours en phase finale (généré depuis le tableau) -->
+    <div class="timeline" id="bleus-timeline">
       <div class="tl-axis"></div>
       <div class="tl-plane">✈️</div>
-
-      <div class="tl-item">
-        <div class="tl-dot">1</div>
-        <div class="tl-card">
-          <div class="tl-step">Étape 1 · 1ʳᵉ journée</div>
-          <div class="tl-match">🇫🇷 France <span class="vs">–</span> Sénégal 🇸🇳</div>
-          <div class="tl-meta">mar. 16 juin · 21h00</div>
-          <div class="tl-where">📍 Stade de New York / New Jersey</div>
-          <div class="tl-tv">📺 M6 (en clair) &amp; BeIN Sports</div>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot">2</div>
-        <div class="tl-card">
-          <div class="tl-step">Étape 2 · 2ᵉ journée</div>
-          <div class="tl-match">🇫🇷 France <span class="vs">–</span> Irak 🇮🇶</div>
-          <div class="tl-meta">lun. 22 juin · 23h00</div>
-          <div class="tl-where">📍 Stade de Philadelphie</div>
-          <div class="tl-tv">📺 M6 (en clair) &amp; BeIN Sports</div>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot">3</div>
-        <div class="tl-card">
-          <div class="tl-step">Étape 3 · 3ᵉ journée</div>
-          <div class="tl-match">🇳🇴 Norvège <span class="vs">–</span> France 🇫🇷</div>
-          <div class="tl-meta">ven. 26 juin · 21h00</div>
-          <div class="tl-where">📍 Stade de Boston</div>
-          <div class="tl-tv">📺 M6 (en clair) &amp; BeIN Sports</div>
-        </div>
-      </div>
+      <div class="class-state"><div class="spin"></div>Calcul du parcours…</div>
     </div>
 
-    <p class="parcours-note">Heure de Paris · Les prochaines étapes (<b>16es, 8es…</b>) s'ajouteront selon le parcours des Bleus.</p>
+    <p class="parcours-note">Heure de Paris · Parcours en élimination directe, mis à jour automatiquement depuis le tableau au fil des résultats. L'adversaire d'un tour s'affiche dès qu'il est connu.</p>
   </section>
 
   <!-- LIGUE DE PRONOS -->
@@ -1603,40 +1604,42 @@
     // Structure officielle des matchs à élimination directe (codes de slots).
     //  1X/2X = 1er/2e du groupe X · 3:ABCDF = un des 8 meilleurs 3es (groupes autorisés)
     //  W##/L## = vainqueur/perdant du match ##
+    //  d/t = date et heure de coup d'envoi en heure de Paris · v = ville hôte
     var BK = {
-      73:{r:"r32",d:"2026-06-28",a:"2A",b:"2B"},
-      74:{r:"r32",d:"2026-06-29",a:"1E",b:"3:ABCDF"},
-      75:{r:"r32",d:"2026-06-29",a:"1F",b:"2C"},
-      76:{r:"r32",d:"2026-06-29",a:"1C",b:"2F"},
-      77:{r:"r32",d:"2026-06-30",a:"1I",b:"3:CDFGH"},
-      78:{r:"r32",d:"2026-06-30",a:"2E",b:"2I"},
-      79:{r:"r32",d:"2026-06-30",a:"1A",b:"3:CEFHI"},
-      80:{r:"r32",d:"2026-07-01",a:"1L",b:"3:EHIJK"},
-      81:{r:"r32",d:"2026-07-01",a:"1D",b:"3:BEFIJ"},
-      82:{r:"r32",d:"2026-07-01",a:"1G",b:"3:AEHIJ"},
-      83:{r:"r32",d:"2026-07-02",a:"2K",b:"2L"},
-      84:{r:"r32",d:"2026-07-02",a:"1H",b:"2J"},
-      85:{r:"r32",d:"2026-07-02",a:"1B",b:"3:EFGIJ"},
-      86:{r:"r32",d:"2026-07-03",a:"1J",b:"2H"},
-      87:{r:"r32",d:"2026-07-03",a:"1K",b:"3:DEIJL"},
-      88:{r:"r32",d:"2026-07-03",a:"2D",b:"2G"},
-      89:{r:"r16",d:"2026-07-04",a:"W74",b:"W77"},
-      90:{r:"r16",d:"2026-07-04",a:"W73",b:"W75"},
-      91:{r:"r16",d:"2026-07-05",a:"W76",b:"W78"},
-      92:{r:"r16",d:"2026-07-05",a:"W79",b:"W80"},
-      93:{r:"r16",d:"2026-07-06",a:"W83",b:"W84"},
-      94:{r:"r16",d:"2026-07-06",a:"W81",b:"W82"},
-      95:{r:"r16",d:"2026-07-07",a:"W86",b:"W88"},
-      96:{r:"r16",d:"2026-07-07",a:"W85",b:"W87"},
-      97:{r:"qf",d:"2026-07-09",a:"W89",b:"W90"},
-      98:{r:"qf",d:"2026-07-10",a:"W93",b:"W94"},
-      99:{r:"qf",d:"2026-07-11",a:"W91",b:"W92"},
-      100:{r:"qf",d:"2026-07-11",a:"W95",b:"W96"},
-      101:{r:"sf",d:"2026-07-14",a:"W97",b:"W98"},
-      102:{r:"sf",d:"2026-07-15",a:"W99",b:"W100"},
-      103:{r:"third",d:"2026-07-18",a:"L101",b:"L102"},
-      104:{r:"final",d:"2026-07-19",a:"W101",b:"W102"}
+      73:{r:"r32",d:"2026-06-28",t:"21:00",v:"Los Angeles",a:"2A",b:"2B"},
+      74:{r:"r32",d:"2026-06-29",t:"22:30",v:"Boston",a:"1E",b:"3:ABCDF"},
+      75:{r:"r32",d:"2026-06-30",t:"03:00",v:"Monterrey",a:"1F",b:"2C"},
+      76:{r:"r32",d:"2026-06-29",t:"19:00",v:"Houston",a:"1C",b:"2F"},
+      77:{r:"r32",d:"2026-06-30",t:"23:00",v:"New York/New Jersey",a:"1I",b:"3:CDFGH"},
+      78:{r:"r32",d:"2026-06-30",t:"19:00",v:"Dallas",a:"2E",b:"2I"},
+      79:{r:"r32",d:"2026-07-01",t:"03:00",v:"Mexico City",a:"1A",b:"3:CEFHI"},
+      80:{r:"r32",d:"2026-07-01",t:"18:00",v:"Atlanta",a:"1L",b:"3:EHIJK"},
+      81:{r:"r32",d:"2026-07-02",t:"02:00",v:"San Francisco",a:"1D",b:"3:BEFIJ"},
+      82:{r:"r32",d:"2026-07-01",t:"22:00",v:"Seattle",a:"1G",b:"3:AEHIJ"},
+      83:{r:"r32",d:"2026-07-03",t:"01:00",v:"Toronto",a:"2K",b:"2L"},
+      84:{r:"r32",d:"2026-07-02",t:"21:00",v:"Los Angeles",a:"1H",b:"2J"},
+      85:{r:"r32",d:"2026-07-03",t:"05:00",v:"Vancouver",a:"1B",b:"3:EFGIJ"},
+      86:{r:"r32",d:"2026-07-04",t:"00:00",v:"Miami",a:"1J",b:"2H"},
+      87:{r:"r32",d:"2026-07-04",t:"03:30",v:"Kansas City",a:"1K",b:"3:DEIJL"},
+      88:{r:"r32",d:"2026-07-03",t:"20:00",v:"Dallas",a:"2D",b:"2G"},
+      89:{r:"r16",d:"2026-07-04",t:"23:00",v:"Philadelphia",a:"W74",b:"W77"},
+      90:{r:"r16",d:"2026-07-04",t:"19:00",v:"Houston",a:"W73",b:"W75"},
+      91:{r:"r16",d:"2026-07-05",t:"22:00",v:"New York/New Jersey",a:"W76",b:"W78"},
+      92:{r:"r16",d:"2026-07-06",t:"02:00",v:"Mexico City",a:"W79",b:"W80"},
+      93:{r:"r16",d:"2026-07-06",t:"21:00",v:"Dallas",a:"W83",b:"W84"},
+      94:{r:"r16",d:"2026-07-07",t:"02:00",v:"Seattle",a:"W81",b:"W82"},
+      95:{r:"r16",d:"2026-07-07",t:"18:00",v:"Atlanta",a:"W86",b:"W88"},
+      96:{r:"r16",d:"2026-07-07",t:"22:00",v:"Vancouver",a:"W85",b:"W87"},
+      97:{r:"qf",d:"2026-07-09",t:"22:00",v:"Boston",a:"W89",b:"W90"},
+      98:{r:"qf",d:"2026-07-10",t:"21:00",v:"Los Angeles",a:"W93",b:"W94"},
+      99:{r:"qf",d:"2026-07-11",t:"23:00",v:"Miami",a:"W91",b:"W92"},
+      100:{r:"qf",d:"2026-07-12",t:"03:00",v:"Kansas City",a:"W95",b:"W96"},
+      101:{r:"sf",d:"2026-07-14",t:"21:00",v:"Dallas",a:"W97",b:"W98"},
+      102:{r:"sf",d:"2026-07-15",t:"21:00",v:"Atlanta",a:"W99",b:"W100"},
+      103:{r:"third",d:"2026-07-18",t:"23:00",v:"Miami",a:"L101",b:"L102"},
+      104:{r:"final",d:"2026-07-19",t:"21:00",v:"New York/New Jersey",a:"W101",b:"W102"}
     };
+    var ROUND_FR = { r32:"16ᵉ de finale", r16:"8ᵉ de finale", qf:"Quart de finale", sf:"Demi-finale", third:"Match 3ᵉ place", final:"Finale" };
     // colonnes (haut → bas) pour un tableau classique à deux côtés
     var COLS_L = { r32:[74,77,73,75,83,84,81,82], r16:[89,90,93,94], qf:[97,98], sf:[101] };
     var COLS_R = { r32:[76,78,79,80,86,88,85,87], r16:[91,92,95,96], qf:[99,100], sf:[102] };
@@ -1719,7 +1722,7 @@
       var A = slotInfo(m.a, num, ctx), B = slotInfo(m.b, num, ctx);
       var hasFr = (A.name === "France" || B.name === "France");
       return '<div class="bk-match"><div class="bk-card' + (hasFr ? " has-fr" : "") + '">' +
-        '<div class="bk-meta">M' + num + ' · ' + frShort(m.d) + '</div>' +
+        '<div class="bk-meta">M' + num + ' · ' + frShort(m.d) + ' · ' + m.t.replace(":","h") + '</div>' +
         bkRow(A) + bkRow(B) + '</div></div>';
     }
 
@@ -1765,10 +1768,103 @@
 
       // Petite finale (3e place)
       var tp = BK[103];
-      html += '<div class="bk-third"><div class="lbl">🥉 Match pour la 3ᵉ place · ' + frShort(tp.d) + '</div>' +
+      html += '<div class="bk-third"><div class="lbl">🥉 Match pour la 3ᵉ place · ' + frShort(tp.d) + ' · ' + tp.t.replace(":","h") + '</div>' +
         '<div class="row2">Perdant ½ ✕ Perdant ½</div></div>';
 
       BK_ROOT.innerHTML = html;
+    }
+
+    // ---------------------------------------------------------------
+    //  PARCOURS DES BLEUS + carte « prochain match » de l'accueil,
+    //  dérivés en direct du tableau (BK + classement).
+    // ---------------------------------------------------------------
+    var FWD_OF = (function(){            // match → match qui consomme son vainqueur
+      var f = {};
+      Object.keys(BK).forEach(function(k){
+        [BK[k].a, BK[k].b].forEach(function(c){
+          var mm = /^W(\d+)$/.exec(c); if (mm) f[mm[1]] = +k;
+        });
+      });
+      return f;
+    })();
+
+    function kickUTC(d, t){              // datetime Paris (CEST=UTC+2) → ms UTC
+      var p = d.split("-"), q = t.split(":");
+      return Date.UTC(+p[0], +p[1]-1, +p[2], +q[0]-2, +q[1]);
+    }
+    function frLong(d, t){
+      var dt = new Date(d + "T00:00:00");
+      var ds = isNaN(dt) ? d : dt.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"long"});
+      return ds + " · " + t.replace(":","h");
+    }
+
+    // Suit la France de match en match dans le tableau (16e → finale).
+    function francePath(ctx){
+      var start = null, fc = null, k, m, A, B;
+      for (k in BK){ if (BK[k].r !== "r32") continue;
+        m = BK[k]; A = slotInfo(m.a, +k, ctx); B = slotInfo(m.b, +k, ctx);
+        if (A.name === "France"){ start = +k; fc = m.a; break; }
+        if (B.name === "France"){ start = +k; fc = m.b; break; }
+      }
+      if (!start) return null;          // France pas en 16es
+      var path = [], num = start;
+      while (num){
+        m = BK[num];
+        var oppCode = (m.a === fc) ? m.b : m.a;
+        var opp = slotInfo(oppCode, num, ctx);
+        path.push({ num:num, r:m.r, d:m.d, t:m.t, v:m.v,
+                    oppName: opp.name || null, oppPh: opp.name ? null : (opp.ph || "À déterminer"),
+                    utc: kickUTC(m.d, m.t) });
+        fc = "W" + num;
+        num = FWD_OF[num] || null;
+      }
+      return path;
+    }
+
+    function renderBleus(ctx){
+      var path = francePath(ctx);
+      var heroEl = document.getElementById("bleus-next");
+      var tlEl   = document.getElementById("bleus-timeline");
+      if (!path){
+        if (heroEl) heroEl.style.display = "none";
+        if (tlEl) tlEl.innerHTML = '<div class="tl-axis"></div><p class="parcours-note">Les Bleus ne figurent pas dans le tableau final.</p>';
+        return;
+      }
+      var now = Date.now();
+      var nextIdx = path.length;        // par défaut : tout est passé
+      for (var i = 0; i < path.length; i++){
+        if (path[i].utc + 7200000 > now){ nextIdx = i; break; }   // 1er match pas terminé
+      }
+
+      if (heroEl){
+        if (nextIdx >= path.length){ heroEl.style.display = "none"; }   // parcours terminé
+        else {
+          var nx = path[nextIdx];
+          var oppHtml = nx.oppName ? label(nx.oppName) : esc(nx.oppPh);
+          document.getElementById("bn-round").textContent = ROUND_FR[nx.r];
+          document.getElementById("bn-teams").innerHTML = label("France") + ' <span class="bn-vs">–</span> ' + oppHtml;
+          document.getElementById("bn-meta").textContent = frLong(nx.d, nx.t) + " · heure de Paris";
+          document.getElementById("bn-where").textContent = "📍 " + nx.v;
+          heroEl.style.display = "";
+        }
+      }
+
+      if (tlEl){
+        var items = path.map(function(p, idx){
+          var done = (p.utc + 7200000 <= now);
+          var isNext = (idx === nextIdx);
+          var oppHtml = p.oppName ? label(p.oppName) : esc(p.oppPh);
+          return '<div class="tl-item' + (isNext ? " next" : "") + (done ? " done" : "") + '">' +
+            '<div class="tl-dot">' + (idx + 1) + '</div>' +
+            '<div class="tl-card">' +
+              '<div class="tl-step">' + ROUND_FR[p.r] + (isNext ? ' · <b>prochain</b>' : '') + '</div>' +
+              '<div class="tl-match">' + label("France") + ' <span class="vs">–</span> ' + oppHtml + '</div>' +
+              '<div class="tl-meta">' + frLong(p.d, p.t) + '</div>' +
+              '<div class="tl-where">📍 ' + esc(p.v) + '</div>' +
+            '</div></div>';
+        }).join("");
+        tlEl.innerHTML = '<div class="tl-axis"></div><div class="tl-plane">✈️</div>' + items;
+      }
     }
 
     function draw(matches, index){
@@ -1776,6 +1872,7 @@
       var groups = compute(matches);
       render(groups);
       renderBracket(groups);
+      renderBleus(BK_CTX);
       renderResults(matches);
     }
 
