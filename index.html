@@ -1644,8 +1644,20 @@
     // Slots de 3e → groupes autorisés (contraintes officielles R32).
     var THIRD_SLOTS = {74:"ABCDF",77:"CDFGH",79:"CEFHI",80:"EHIJK",81:"BEFIJ",82:"AEHIJ",85:"EFGIJ",87:"DEIJL"};
 
+    // Table officielle FIFA d'affectation des 8 meilleurs 3es à leur 16e de finale.
+    // Le couplage biparti ci-dessous trouve une affectation *valide* mais pas
+    // forcément celle retenue par la FIFA (table fixe prédéfinie, non algorithmique).
+    // On fige donc les combinaisons déjà connues pour coller au tirage réel.
+    // Clé = lettres des groupes des 3es qualifiés (triées) → { numMatch: lettreGroupe }.
+    var THIRD_FIXED = {
+      // 2026 (résultats réels) : 3es qualifiés des groupes B,D,E,F,I,J,K,L.
+      "BDEFIJKL": {74:"D",77:"F",79:"E",80:"K",81:"B",82:"I",85:"J",87:"L"}
+    };
+
     // Affecte chaque 3e qualifié (par lettre de groupe) à un slot (couplage biparti).
     function assignThirds(letters){
+      var fixed = THIRD_FIXED[letters.slice().sort().join("")];
+      if (fixed) return fixed;                     // affectation officielle FIFA connue
       var ids = Object.keys(THIRD_SLOTS), slotOf = {};
       function tryK(l, seen){
         for (var i=0;i<ids.length;i++){
