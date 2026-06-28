@@ -1146,16 +1146,16 @@
   <div class="panel" data-panel="tableau" id="panel-tableau" role="tabpanel" aria-labelledby="tab-tableau" hidden="">
     <section class="parcours" data-screen-label="tableau">
       <div class="sec-head"><span class="lbl">🏆 Tableau final</span><span class="ln"></span></div>
-      <p class="class-intro">Des <b>16es de finale</b> à la finale · qualifiés et adversaires potentiels projetés <b>en temps réel</b> depuis le classement. <span style="color:var(--faint)">← défile horizontalement →</span></p>
+      <p class="class-intro">Des <b>16es de finale</b> à la finale · seizièmes <b>actés</b>, tours suivants mis à jour à chaque match joué. <span style="color:var(--faint)">← défile horizontalement →</span></p>
       <div class="bracket-wrap">
         <div id="bracket-root">
           <div class="class-state"><div class="spin"></div>Construction du tableau…</div>
         </div>
         <div class="class-foot">
-          <span class="lg"><span class="sw t"></span> 3ᵉ projeté · attribution <b>provisoire</b></span>
+          <span class="lg"><span class="sw t"></span> 3ᵉ qualifié</span>
           <span class="lg"><span class="sw f"></span> 🇫🇷 France</span>
         </div>
-        <p class="class-intro" style="margin-top:12px;font-size:.8rem;opacity:.85;">ℹ️ Les places de <b>2ᵉ</b> et <b>1ᵉʳ</b> de groupe suivent le classement en direct. Les <b>8 meilleurs 3ᵉˢ</b> sont projetés vers leurs matchs selon les contraintes officielles (un même 3ᵉ peut basculer de match selon les résultats) → marqués « prov. ». Les tours suivants affichent « Vainq. M## » tant que le match précédent n'est pas joué.</p>
+        <p class="class-intro" style="margin-top:12px;font-size:.8rem;opacity:.85;">ℹ️ La phase de groupes est terminée : les <b>32 qualifiés</b> (1ᵉʳˢ, 2ᵉˢ et 8 meilleurs 3ᵉˢ) et leurs affiches de seizièmes sont actés selon les contraintes officielles FIFA. Les tours suivants affichent « Vainq. M## » tant que le match précédent n'est pas joué.</p>
       </div>
     </section>
   </div><!-- /panel tableau -->
@@ -1682,10 +1682,10 @@
 
     // Résout un code de slot en équipe (ou null = à déterminer).
     function slotInfo(code, m, ctx){
-      if (code.charAt(0) === "3"){                 // place de 3e (projetée)
+      if (code.charAt(0) === "3"){                 // place de 3e (qualifié, actée)
         var lt = ctx.thirdByMatch[m];
-        if (lt && ctx.thirdName[lt]) return { name:ctx.thirdName[lt], sub:"3ᵉ", prov:true };
-        return { ph:"3ᵉ · " + code.slice(2).split("").join("/"), prov:true };
+        if (lt && ctx.thirdName[lt]) return { name:ctx.thirdName[lt], sub:"3ᵉ" };
+        return { ph:"3ᵉ · " + code.slice(2).split("").join("/") };
       }
       if (/^[12][A-L]$/.test(code)){
         var lvl = code.charAt(0) === "1" ? "1ᵉʳ" : "2ᵉ", g = code.charAt(1);
