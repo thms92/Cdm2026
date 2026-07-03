@@ -1,0 +1,49 @@
+name: Mise à jour auto du calendrier
+
+# Régénère les matchs à élimination directe (8es → finale) des .ics depuis
+# openfootball et pousse si les équipes/affiches ont changé. Les abonnés
+# (calendrier Apple/Google en mode abonnement) reçoivent alors les vraies
+# équipes automatiquement au tour suivant.
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"        # toutes les 3 heures
+  workflow_dispatch:             # déclenchement manuel possible
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build-ics.js"
+      - ".github/workflows/update-calendar.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-calendar
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Régénère les .ics depuis les données live
+        run: node scripts/build-ics.js
+
+      - name: Commit & push si changement
+        run: |
+          if [ -n "$(git status --porcelain cdm2026.ics cdm2026-alerte.ics)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add cdm2026.ics cdm2026-alerte.ics
+            git commit -m "Calendrier : mise à jour auto des matchs K.O. (équipes connues)"
+            git push
+            echo "✅ Calendrier mis à jour et poussé."
+          else
+            echo "ℹ️ Aucun changement dans les calendriers."
+          fi
