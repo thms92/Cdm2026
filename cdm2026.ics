@@ -899,12 +899,12 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ko-m97@cdm2026
 DTSTAMP:20260628T000000Z
-SEQUENCE:0
+SEQUENCE:1
 DTSTART;TZID=Europe/Paris:20260709T220000
 DTEND;TZID=Europe/Paris:20260710T000000
-SUMMARY:🏆 Quart de finale
+SUMMARY:⭐ 🇫🇷 France vs 🇲🇦 Maroc
 LOCATION:Boston
-DESCRIPTION:Coupe du Monde FIFA 2026 - Quart de finale (M97) · Vainqueur M89 vs Vainqueur M90 - Boston
+DESCRIPTION:Coupe du Monde FIFA 2026 - Quart de finale (M97) - Boston
 END:VEVENT
 BEGIN:VEVENT
 UID:ko-m98@cdm2026
