@@ -929,12 +929,12 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ko-m100@cdm2026
 DTSTAMP:20260628T000000Z
-SEQUENCE:0
+SEQUENCE:1
 DTSTART;TZID=Europe/Paris:20260712T030000
 DTEND;TZID=Europe/Paris:20260712T050000
-SUMMARY:🏆 Quart de finale
+SUMMARY:🇦🇷 Argentine vs 🇨🇭 Suisse
 LOCATION:Kansas City
-DESCRIPTION:Coupe du Monde FIFA 2026 - Quart de finale (M100) · Vainqueur M95 vs Vainqueur M96 - Kansas City
+DESCRIPTION:Coupe du Monde FIFA 2026 - Quart de finale (M100) - Kansas City
 END:VEVENT
 BEGIN:VEVENT
 UID:ko-m101@cdm2026
