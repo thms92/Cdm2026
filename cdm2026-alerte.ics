@@ -1474,7 +1474,7 @@ DTSTART;TZID=Europe/Paris:20260718T230000
 DTEND;TZID=Europe/Paris:20260719T010000
 SUMMARY:🥉 Match pour la 3e place
 LOCATION:Miami
-DESCRIPTION:Coupe du Monde FIFA 2026 - Match pour la 3e place (M103) · Perdant M101 vs Perdant M102 - Miami
+DESCRIPTION:Coupe du Monde FIFA 2026 - Match pour la 3e place (M103) · France vs Perdant M102 - Miami
 BEGIN:VALARM
 TRIGGER:-PT15M
 ACTION:DISPLAY
@@ -1489,7 +1489,7 @@ DTSTART;TZID=Europe/Paris:20260719T210000
 DTEND;TZID=Europe/Paris:20260719T230000
 SUMMARY:🏆 Finale
 LOCATION:New York/New Jersey
-DESCRIPTION:Coupe du Monde FIFA 2026 - Finale (M104) · Vainqueur M101 vs Vainqueur M102 - New York/New Jersey
+DESCRIPTION:Coupe du Monde FIFA 2026 - Finale (M104) · Spain vs Vainqueur M102 - New York/New Jersey
 BEGIN:VALARM
 TRIGGER:-PT15M
 ACTION:DISPLAY
